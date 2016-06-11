@@ -5,6 +5,6 @@ This set of tools should make it easier to write themes/skins for [Scratch-Block
 var t = new Sb3Theme();
 
 t.addInit(function() {
-  t.addFilter('<filter id="myFilter"></filter>');
+  t.addFilter('<filter id="myFilter"> ... </filter>');
 });
 ```
