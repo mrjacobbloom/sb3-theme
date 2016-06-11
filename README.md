@@ -30,3 +30,5 @@ t.addOnChange(function() {
   });
 });
 ```
+Result:
+![repeat block with blur filter](resources/blurred-repeat.png)
