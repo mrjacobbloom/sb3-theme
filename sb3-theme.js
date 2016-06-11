@@ -15,7 +15,7 @@ function Sb3Theme() {
   }
 
   this._initSVG = function() {
-    this.svg = document.querySelector('svg.blocklySvg'); // Blockly.WorkspaceSVG.cachedParentSvg_;
+    this.svg = document.querySelector('svg.blocklySvg');
 
     this.css = document.createElement("style");
     document.body.appendChild(this.css);

@@ -223,6 +223,36 @@
       }
     </script>
 
+
+
+
+    <script src="../../../sb3-theme.js"></script>
+    <script>
+    var t = new Sb3Theme();
+    console.log(t);
+
+    t.addInit(function() {
+      t.addFilter(`<filter id="myFilter">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" y="-"/>
+      </filter>`);
+
+      t.css.innerHTML += `.myRepeats {
+        filter: url(#myFilter)
+      }`;
+    });
+
+    t.addOnChange(function() { //obvi this doesn't work in horizontal--it doesn't use words!
+      var repeats = t.getBlocksWithText('repeat');
+      repeats.forEach(function(elem) {
+        elem.classList.add("myRepeats");
+      });
+    });
+
+    </script>
+
+
+
+
     <style>
       html, body {
         height: 100%;

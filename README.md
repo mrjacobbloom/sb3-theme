@@ -4,6 +4,7 @@ This is a work-in-progress. Everything is subject to change. Use at your own ris
 
 # Examples
 ```javascript
+//initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
 
 // "addInit" funcions only run when the editor is first opened
@@ -33,4 +34,20 @@ t.addOnChange(function() {
 });
 ```
 Result:
+
 ![repeat block with blur filter](resources/blurred-repeat.png)
+
+# Methods and Properties
+## Methods
+
+* `addInit()` - add a function to run once after the SVG has been initialized.
+* `addOnChange()` - add a function that will run every time the number of blocks changes.
+* `addFilter()` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents
+* `getBlocksWithText(text)` - returns an array of SVG paths whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`.
+
+## Properties
+
+* `css` - a `<style>` element that I've created just for you. Do what you wish with it.
+* `svg` - the `<svg>` element in which the editor is housed.
+* `defs` - the `<defs>` element where you'll find filters and things.
+* `draggables` - a NodeList of all the elements in the SVG with have the class `blocklyDraggable`. You probably don't need to worry about this, it's mostly used internally
