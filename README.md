@@ -37,6 +37,38 @@ Result:
 
 ![repeat block with blur filter](resources/blurred-repeat.png)
 
+
+
+```javascript
+//initialize a new Sb3Theme object and store it in the variable "t"
+var t = new Sb3Theme();
+
+// "addInit" funcions only run when the editor is first opened
+t.addInit(function() {
+
+  // using CSS, change the fill color to black for all <path> elements directly inside elements with the class "black"
+  t.css.innerHTML += `.black > path {
+    fill: black;
+  }`;
+});
+
+// "addOnChange" functions run whenever the number of blocks changes
+t.addOnChange(function() {
+
+  // find all the SVG groups with the fill color #FFAB19
+  var repeats = t.getBlocksWithFillColor('#FFAB19');
+
+  // give them all the class name "myRepeats"
+  repeats.forEach(function(elem) {
+    elem.classList.add("black");
+  });
+});
+```
+Result:
+![forever block with black fill](resources/black-forever.png)
+
+
+
 # Methods and Properties
 ## Methods
 
@@ -44,6 +76,7 @@ Result:
 * `addOnChange()` - add a function that will run every time the number of blocks changes.
 * `addFilter()` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents
 * `getBlocksWithText(text)` - returns an array of SVG groups whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), an potentially other groups.
+* `getBlocksWithFillColor(color)` - returns an array of SVG groups whose path (background) color matches `color`. You can use color names, RGB[A], HSL, you name it. Again, note that this returns groups.
 
 ## Properties
 

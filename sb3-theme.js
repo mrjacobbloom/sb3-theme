@@ -70,4 +70,20 @@ function Sb3Theme() {
     return result;
   }
 
+  this.getBlocksWithFillColor = function(query) {
+    var result = [];
+
+    //convert fill color to RGB by coloring our hidden style element
+    this.css.setAttribute("style", "background-color: " + query + ";");
+    var rgbColor = document.defaultView.getComputedStyle(this.css, null).getPropertyValue("background-color");
+
+    for(let i = 0; i < this.draggables.length; i++) {
+      let path = this.draggables[i].getElementsByTagName('path')[0];
+      if(rgbColor == document.defaultView.getComputedStyle(path, null).getPropertyValue("fill")) {
+        result.push( this.draggables[i] );
+      }
+    }
+    return result;
+  }
+
 }
