@@ -3,12 +3,20 @@ function Sb3Theme() {
 
   // hang out until the SVG exists, then run the init function
   var observer = new MutationObserver(function(mutations) {
-      if(document.querySelector('#blocklyDiv .blocklySvg')) {
-          observer.disconnect();
-          initSVG()
-      }
+    console.log("b")
+    if(Blockly && Blockly.WorkspaceSVG && Blockly.WorkspaceSVG.cachedParentSvg_) {
+      console.log("c")
+      observer.disconnect();
+      initSVG();
+    }
   });
-  observer.observe(document.getElementById('blocklyDiv'), {childList: true});
+
+  if(Blockly && Blockly.WorkspaceSVG && Blockly.WorkspaceSVG.cachedParentSvg_) {
+    initSVG();
+  } else {
+    console.log("a")
+    observer.observe(document, {childList: true}); // <body> doesn't always exist at runtime
+  }
 
   function initSVG() { // more init
     this.svg = Blockly.WorkspaceSVG.cachedParentSvg_;
@@ -20,7 +28,8 @@ function Sb3Theme() {
   }
 
   this.addFilter = function(filter) {
-    var doc = new DOMParser().parseFromString(`<svg xmlns="` + this.NS; + `">` + filter + `</svg>`, 'image/svg+xml');
+    window.alert("namespace: " + this.NS);
+    var doc = new DOMParser().parseFromString(`<svg xmlns="` + this.NS + `">` + filter + `</svg>`, 'image/svg+xml');
     defs.appendChild( this.defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
   }
 
