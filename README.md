@@ -3,6 +3,7 @@ This set of tools should make it easier to write themes/skins for [Scratch-Block
 This is a work-in-progress. Everything is subject to change. Use at your own risk. :package:
 
 # Examples
+## blur the repeat block
 ```javascript
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
@@ -38,7 +39,7 @@ Result:
 ![repeat block with blur filter](resources/blurred-repeat.png)
 
 
-
+## make events blocks black
 ```javascript
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
