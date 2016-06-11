@@ -15,8 +15,8 @@ t.addInit(function() {
     <feGaussianBlur in="SourceGraphic" stdDeviation="3" y="-"/>
   </filter>`);
 
-  // add the filter to all elements with the class "myRepeats"
-  t.css.innerHTML += `.myRepeats {
+  // using CSS, add the filter to all <path> elements directly inside elements with the class "myRepeats"
+  t.css.innerHTML += `.myRepeats > path {
     filter: url(#myFilter)
   }`;
 });
@@ -24,7 +24,7 @@ t.addInit(function() {
 // "addOnChange" functions run whenever the number of blocks changes
 t.addOnChange(function() {
 
-  // find all the blocks with the word "repeat"
+  // find all the SVG groups with the word "repeat"
   var repeats = t.getBlocksWithText('repeat');
 
   // give them all the class name "myRepeats"
@@ -43,7 +43,7 @@ Result:
 * `addInit()` - add a function to run once after the SVG has been initialized.
 * `addOnChange()` - add a function that will run every time the number of blocks changes.
 * `addFilter()` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents
-* `getBlocksWithText(text)` - returns an array of SVG paths whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`.
+* `getBlocksWithText(text)` - returns an array of SVG groups whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), an potentially other groups.
 
 ## Properties
 

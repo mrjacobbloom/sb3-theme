@@ -64,7 +64,7 @@ function Sb3Theme() {
       }
       text = text.replace(/(&nbsp;|  +)/g, " ")
       if(text.match(query)) {
-        result.push( this.draggables[i].getElementsByClassName('blocklyPath')[0] );
+        result.push( this.draggables[i] );
       }
     }
     return result;
