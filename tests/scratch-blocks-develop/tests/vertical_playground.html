@@ -257,7 +257,20 @@
     console.log(t);
 
     t.addInit(function() {
-      t.addFilter('<filter id="testFilter"></filter>');
+      t.addFilter(`<filter id="myFilter">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" y="-"/>
+      </filter>`);
+
+      t.css.innerHTML += `.myRepeats {
+        filter: url(#myFilter)
+      }`;
+    });
+
+    t.addOnChange(function() {
+      var repeats = t.getBlocksWithText('repeat');
+      repeats.forEach(function(elem) {
+        elem.classList.add("myRepeats");
+      });
     });
 
     </script>
