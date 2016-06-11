@@ -39,7 +39,7 @@ Result:
 ![repeat block with blur filter](resources/blurred-repeat.png)
 
 
-## make events blocks black
+## make control blocks black
 ```javascript
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
@@ -56,7 +56,7 @@ t.addInit(function() {
 // "addOnChange" functions run whenever the number of blocks changes
 t.addOnChange(function() {
 
-  // find all the SVG groups with the fill color #FFAB19
+  // find all the SVG groups with the fill color #FFAB19 (the color for control blocks)
   var repeats = t.getBlocksWithFillColor('#FFAB19');
 
   // give them all the class name "myRepeats"
