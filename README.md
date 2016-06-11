@@ -13,7 +13,7 @@ t.addInit(function() {
 
   // add a blur filter to the SVG
   t.addFilter(`<filter id="myFilter">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="3" y="-"/>
+    <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
   </filter>`);
 
   // using CSS, add the filter to all <path> elements directly inside elements with the class "myRepeats"
@@ -66,6 +66,7 @@ t.addOnChange(function() {
 });
 ```
 Result:
+
 ![forever block with black fill](resources/black-forever.png)
 
 
