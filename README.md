@@ -1,7 +1,7 @@
 This set of tools should make it easier to write themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) and Scratch 3.0. It might work for vanilla Blockly too, but I haven't tested it there.
 
 # Examples
-```
+```javascript
 var t = new Sb3Theme();
 
 // "addInit" funcions only run when the editor is first opened
@@ -20,7 +20,7 @@ t.addInit(function() {
 
 // "addOnChange" functions run whenever the number of blocks changes
 t.addOnChange(function() {
-  
+
   // find all the blocks with the word "repeat"
   var repeats = t.getBlocksWithText('repeat');
 
