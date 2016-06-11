@@ -256,9 +256,10 @@
     var t = new Sb3Theme();
     console.log(t);
 
-    t.onLoad = function() {
+    t.addInit(function() {
+      console.log("success")
       t.addFilter('<filter id="testFilter"></filter>');
-    }
+    });
 
     </script>
 
