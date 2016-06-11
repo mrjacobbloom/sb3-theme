@@ -1,4 +1,6 @@
-This set of tools should make it easier to write themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) and Scratch 3.0. It might work for vanilla Blockly too, but I haven't tested it there.
+This set of tools should make it easier to write themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It might work for vanilla Blockly too, but I haven't tested it there.
+
+This is a work-in-progress. Everything is subject to change. Use at your own risk. :package:
 
 # Examples
 ```javascript
