@@ -30,14 +30,14 @@ function Sb3Theme() {
     //set up an observer for future changes to the document
     var draggableCount = -1;
     var observer = new MutationObserver(function(mutations) {
-      self.draggables = Array.prototype.slice.call(self.svg.querySelectorAll(".blocklyDraggable"));
+      self.allBlocks = Array.prototype.slice.call(self.svg.querySelectorAll(".blocklyDraggable"));
       var dragdrag = self.dragsvg.querySelectorAll(".blocklyDraggable"); //cast that noelist to an array so I can merge it with this other nodelist
       for(let i = 0; i < dragdrag.length; i++) {
-        self.draggables.push(dragdrag[i]);
+        self.allBlocks.push(dragdrag[i]);
       }
       var flyoutVisibility = self.svg.getElementsByClassName("blocklyFlyout")[0].style.display == "block";
-      if(flyoutVisibility || draggableCount != self.draggables.length) {
-        draggableCount = self.draggables.length;
+      if(flyoutVisibility || draggableCount != self.allBlocks.length) {
+        draggableCount = self.allBlocks.length;
         for(i in onChanges) {
           onChanges[i]();
         }
@@ -63,9 +63,9 @@ function Sb3Theme() {
 
   this.getBlocksWithText = function(query) {
     var result = [];
-    for(let i = 0; i < this.draggables.length; i++) {
+    for(let i = 0; i < this.allBlocks.length; i++) {
       let text = "";
-      let children = this.draggables[i].children;
+      let children = this.allBlocks[i].children;
       for(let j = 0; j < children.length; j++) {
         if(children[j].tagName.match(/text/i)) {
           text += " " + children[j].textContent;
@@ -73,7 +73,7 @@ function Sb3Theme() {
       }
       text = text.replace(/(&nbsp;|  +)/g, " ")
       if(text.match(query)) {
-        result.push( this.draggables[i] );
+        result.push( this.allBlocks[i] );
       }
     }
     return result;
@@ -86,10 +86,10 @@ function Sb3Theme() {
     this.css.setAttribute("style", "background-color: " + query + ";");
     var rgbColor = document.defaultView.getComputedStyle(this.css, null).getPropertyValue("background-color");
 
-    for(let i = 0; i < this.draggables.length; i++) {
-      let path = this.draggables[i].getElementsByTagName('path')[0];
+    for(let i = 0; i < this.allBlocks.length; i++) {
+      let path = this.allBlocks[i].getElementsByTagName('path')[0];
       if(rgbColor == document.defaultView.getComputedStyle(path, null).getPropertyValue("fill")) {
-        result.push( this.draggables[i] );
+        result.push( this.allBlocks[i] );
       }
     }
     return result;
@@ -97,16 +97,25 @@ function Sb3Theme() {
 
   this.getBlocksWithIcon = function(query) {
     var result = [];
-    for(let i = 0; i < this.draggables.length; i++) {
-      let images = this.draggables[i].querySelectorAll(':scope > g > image');
+    for(let i = 0; i < this.allBlocks.length; i++) {
+      let images = this.allBlocks[i].querySelectorAll(':scope > g > image');
       for(let j = 0; j < images.length; j++) {
-        console.log(!!images[j].getAttribute('xlink:href').match(query) + " " + images[j].getAttribute('xlink:href'));
         if(images[j].getAttribute('xlink:href').match(query)) {
-          result.push( this.draggables[i] );
+          result.push( this.allBlocks[i] );
         }
       }
     }
-    console.log("-")
+    return result;
+  }
+
+  this.getInputs = function(query) {
+    var result = [];
+    for(let i = 0; i < query.length; i++) {
+      let texts = query[i].querySelectorAll(':scope > g > g.blocklyEditableText');
+      for(let j = 0; j < texts.length; j++) {
+        result.push( texts[j].parentNode );
+      }
+    }
     return result;
   }
 

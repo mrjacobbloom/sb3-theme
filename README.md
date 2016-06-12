@@ -54,6 +54,7 @@ Result:
 * `getBlocksWithText(string)` - returns an array of SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
 * `getBlocksWithFillColor(string)` - returns an array of SVG groups whose path (background) color matches `string`. You can use color names, RGB[A], HSL, you name it--it'll be converted to the correct format for color comparison. Again, note that this returns groups.
 * `getBlocksWithIcon(string)` - returns an array of SVG groups whose icon URL contains the substring `string`. Once again, it's groups, not paths.
+* `getInputs(array)` - takes an array of blocks and returns the inputs within those blocks.
 
 ## Properties
 
@@ -61,4 +62,4 @@ Result:
 * `svg` - the `<svg>` element in which the editor is housed.
 * `dragsvg` - the `<svg>` element where blocks go while you drag them.
 * `defs` - the `<defs>` element where you'll find filters and things.
-* `draggables` - an array of all the elements in the SVGs with have the class `blocklyDraggable`. You probably don't need to worry about this, it's mostly used internally.
+* `allBlocks` - an array of all the blocks in the SVGs.
