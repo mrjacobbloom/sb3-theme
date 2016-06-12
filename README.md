@@ -47,9 +47,13 @@ var t = new Sb3Theme();
 // "addInit" funcions only run when the editor is first opened
 t.addInit(function() {
 
-  // using CSS, change the fill color to black for all <path> elements directly inside elements with the class "black"
-  t.css.innerHTML += `.black > path {
+  // using CSS, change the styles for all <path> elements directly inside elements with the class "black"
+  t.css.innerHTML += `
+  .black > path {
     fill: black;
+  }
+  .black > text {
+    font-family: serif;
   }`;
 });
 
@@ -67,7 +71,7 @@ t.addOnChange(function() {
 ```
 Result:
 
-![forever block with black fill](resources/black-forever.png)
+![forever block with black fill](resources/black-serif-repeat.png)
 
 
 

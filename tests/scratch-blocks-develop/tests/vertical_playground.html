@@ -260,8 +260,12 @@
     t.addInit(function() {
 
       // using CSS, change the fill color to black for all <path> elements directly inside elements with the class "black"
-      t.css.innerHTML += `.black > path {
+      t.css.innerHTML += `
+      .black > path {
         fill: black;
+      }
+      .black > text {
+        font-family: serif;
       }`;
     });
 
