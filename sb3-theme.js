@@ -1,4 +1,5 @@
 function Sb3Theme() {
+
   // hang out until the SVG exists, then run the init function
   var self = this;
   var initObserver = new MutationObserver(function(mutations) {
@@ -36,6 +37,7 @@ function Sb3Theme() {
         self.allBlocks.push(dragdrag[i]);
       }
       var flyoutVisibility = self.svg.getElementsByClassName("blocklyFlyout")[0].style.display == "block";
+      self.horizontal = Blockly.mainWorkspace.horizontalLayout;
       if(flyoutVisibility || draggableCount != self.allBlocks.length) {
         draggableCount = self.allBlocks.length;
         for(i in onChanges) {
@@ -103,6 +105,41 @@ function Sb3Theme() {
         if(images[j].getAttribute('xlink:href').match(query)) {
           result.push( this.allBlocks[i] );
         }
+      }
+    }
+    return result;
+  }
+
+  this.getBlocksWithShape = function(shape) {
+    var result = [],
+      vertexCounts = {
+        "true": {
+        	"w": 117,
+        	"f": 81,
+        	"b": 0, // horizontal reporters don't exist yet
+        	"r": 0,
+        	"h": 77,
+        	"c": 233,
+        	"cf": 197,
+        	"e": 0
+        },
+        "false": {
+        	"w": 120,
+        	"f": 80,
+        	"b": 22,
+        	"r": 26,
+        	"h": 81,
+        	"c": 239,
+        	"cf": 201,
+        	"e": 360
+        }
+      },
+      shapeVerts = vertexCounts[this.horizontal.toString()][shape];
+
+    for(let i = 0; i < this.allBlocks.length; i++) {
+      let path = this.allBlocks[i].getElementsByTagName('path')[0];
+      if(shapeVerts == path.getAttribute("d").match(/,| /g).length) {
+        result.push( this.allBlocks[i] );
       }
     }
     return result;

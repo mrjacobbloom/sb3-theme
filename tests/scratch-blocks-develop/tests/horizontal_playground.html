@@ -245,7 +245,7 @@
     t.addOnChange(function() {
 
       // find all the SVG groups with the fill color #FFAB19 (the color for control blocks)
-      var stops = t.getBlocksWithIcon('control_stop.svg');
+      var stops = t.getBlocksWithShape('c');
 
       // give them all the class name "stop"
       stops.forEach(function(elem) {

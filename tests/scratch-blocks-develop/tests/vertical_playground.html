@@ -264,7 +264,7 @@
       .black > path {
         fill: black;
       }
-      .black > g > text {
+      .black > text {
         font-family: serif;
         fill: red;
       }`;
@@ -274,7 +274,7 @@
     t.addOnChange(function() {
 
       // find all the SVG groups with the fill color #FFAB19
-      var repeats = t.getInputs(t.allBlocks);
+      var repeats = t.getBlocksWithShape("c");
 
       // give them all the class name "myRepeats"
       repeats.forEach(function(elem) {

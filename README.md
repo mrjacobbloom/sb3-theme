@@ -54,11 +54,21 @@ Result:
 * `getBlocksWithText(string)` - returns an array of SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
 * `getBlocksWithFillColor(string)` - returns an array of SVG groups whose path (background) color matches `string`. You can use color names, RGB[A], HSL, you name it--it'll be converted to the correct format for color comparison. Again, note that this returns groups.
 * `getBlocksWithIcon(string)` - returns an array of SVG groups whose icon URL contains the substring `string`. Once again, it's groups, not paths.
+* `getBlocksWithShape(string)` - returns an array of SVG groups whose shape code matches the input. shape codes are as follows:
+  * "w": stack
+  * "f": cap
+  * "b": boolean
+  * "r": reporter
+  * "h": hat
+  * "c": loop
+  * "cf": final loop
+  * "e": if-else
 * `getInputs(array)` - takes an array of blocks and returns an array of the inputs within those blocks.
 
 ## Properties
 
 * `allBlocks` - an array of all the blocks in the SVGs. Note that this includes inputs.
+* `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it in an addInit function.
 * `css` - a `<style>` element that I've created just for you. Do what you wish with it.
 * `svg` - the `<svg>` element in which the editor is housed.
 * `dragsvg` - the `<svg>` element where blocks go while you drag them.
