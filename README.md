@@ -71,7 +71,8 @@ t.addOnChange(function() {
 ```
 Result:
 
-![forever block with black fill](resources/black-serif-repeat.png)
+![repeat block with black fill](resources/black-serif-repeat.png)
+![black blocks in the horizontal editor](resources/black-flyout.png)
 
 
 
