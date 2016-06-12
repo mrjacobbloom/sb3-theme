@@ -35,7 +35,8 @@ function Sb3Theme() {
       for(let i = 0; i < dragdrag.length; i++) {
         self.draggables.push(dragdrag[i]);
       }
-      if(draggableCount != self.draggables.length) {
+      var flyoutVisibility = self.svg.getElementsByClassName("blocklyFlyout")[0].style.display == "block";
+      if(flyoutVisibility || draggableCount != self.draggables.length) {
         draggableCount = self.draggables.length;
         for(i in onChanges) {
           onChanges[i]();
