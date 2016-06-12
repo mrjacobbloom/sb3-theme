@@ -31,7 +31,7 @@ function Sb3Theme() {
     var draggableCount = -1;
     var observer = new MutationObserver(function(mutations) {
       self.draggables = Array.prototype.slice.call(self.svg.querySelectorAll(".blocklyDraggable"));
-      var dragdrag = self.dragsvg.querySelectorAll(".blocklyDraggable");
+      var dragdrag = self.dragsvg.querySelectorAll(".blocklyDraggable"); //cast that noelist to an array so I can merge it with this other nodelist
       for(let i = 0; i < dragdrag.length; i++) {
         self.draggables.push(dragdrag[i]);
       }
