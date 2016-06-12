@@ -59,8 +59,11 @@ function Sb3Theme() {
     var result = [];
     for(let i = 0; i < this.draggables.length; i++) {
       let text = "";
-      for(let j = 0; j < this.draggables[i].getElementsByTagName('text').length; j++) {
-        text += " " + this.draggables[i].getElementsByTagName('text')[j].textContent;
+      let children = this.draggables[i].children;
+      for(let j = 0; j < children.length; j++) {
+        if(children[j].tagName.match(/text/i)) {
+          text += " " + children[j].textContent;
+        }
       }
       text = text.replace(/(&nbsp;|  +)/g, " ")
       if(text.match(query)) {

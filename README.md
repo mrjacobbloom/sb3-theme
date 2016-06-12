@@ -26,7 +26,7 @@ t.addInit(function() {
 t.addOnChange(function() {
 
   // find all the SVG groups with the word "repeat"
-  var repeats = t.getBlocksWithText('repeat');
+  var repeats = t.getBlocksWithText('repeat times');
 
   // give them all the class name "myRepeats"
   repeats.forEach(function(elem) {
@@ -57,10 +57,10 @@ t.addInit(function() {
 t.addOnChange(function() {
 
   // find all the SVG groups with the fill color #FFAB19 (the color for control blocks)
-  var repeats = t.getBlocksWithFillColor('#FFAB19');
+  var controls = t.getBlocksWithFillColor('#FFAB19');
 
   // give them all the class name "myRepeats"
-  repeats.forEach(function(elem) {
+  controls.forEach(function(elem) {
     elem.classList.add("black");
   });
 });

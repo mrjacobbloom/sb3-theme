@@ -269,7 +269,7 @@
     t.addOnChange(function() {
 
       // find all the SVG groups with the fill color #FFAB19
-      var repeats = t.getBlocksWithFillColor('#FFAB19');
+      var repeats = t.getBlocksWithText('repeat times');
 
       // give them all the class name "myRepeats"
       repeats.forEach(function(elem) {
