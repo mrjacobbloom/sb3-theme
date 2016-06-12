@@ -3,9 +3,9 @@ This set of tools should make it easier to write themes/skins for [Scratch-Block
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # Installation
-Download the above file called `sb3-theme.js` and insert it into your copy of `horizontal_playground.html` or `vertical_playground.html`.
+The easiest way to play with this right now is to download or clone this repo. There's a copy of the Scratch-Blocks repo inside of the `tests` folder, where you can tinker with it.
 
-Eventually, I might put this on gh-pages so you can just link it.
+If you really want your own copy, download the above file called `sb3-theme.js` and insert it into your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I might put this on gh-pages so you can just link it.
 
 # Examples
 ## blur the repeat block
@@ -118,7 +118,7 @@ Result:
 * `addFilter()` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents
 * `getBlocksWithText(text)` - returns an array of SVG groups whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
 * `getBlocksWithFillColor(color)` - returns an array of SVG groups whose path (background) color matches `color`. You can use color names, RGB[A], HSL, you name it. Again, note that this returns groups.
-* `getBlocksWithIcon(text)` - returns an array of SVG groups whose icon URL contains the substring `text`. Once again, its groups, not paths.
+* `getBlocksWithIcon(text)` - returns an array of SVG groups whose icon URL contains the substring `text`. Once again, it's groups, not paths.
 
 ## Properties
 
