@@ -113,12 +113,12 @@ Result:
 # Methods and Properties
 ## Methods
 
-* `addInit()` - add a function to run once after the SVG has been initialized.
-* `addOnChange()` - add a function that will run every time the number of blocks changes.
-* `addFilter()` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents
-* `getBlocksWithText(text)` - returns an array of SVG groups whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
-* `getBlocksWithFillColor(color)` - returns an array of SVG groups whose path (background) color matches `color`. You can use color names, RGB[A], HSL, you name it. Again, note that this returns groups.
-* `getBlocksWithIcon(text)` - returns an array of SVG groups whose icon URL contains the substring `text`. Once again, it's groups, not paths.
+* `addInit(function)` - add a function to run once after the SVG has been initialized.
+* `addOnChange(function)` - add a function that will run every time the number of blocks changes.
+* `addFilter(string)` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents.
+* `getBlocksWithText(string)` - returns an array of SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
+* `getBlocksWithFillColor(string)` - returns an array of SVG groups whose path (background) color matches `string`. You can use color names, RGB[A], HSL, you name it--it'll be converted to the correct format for color comparison. Again, note that this returns groups.
+* `getBlocksWithIcon(string)` - returns an array of SVG groups whose icon URL contains the substring `string`. Once again, it's groups, not paths.
 
 ## Properties
 
