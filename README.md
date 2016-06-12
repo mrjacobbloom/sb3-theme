@@ -58,8 +58,8 @@ Result:
 
 ## Properties
 
+* `allBlocks` - an array of all the blocks in the SVGs. Note that this includes inputs.
 * `css` - a `<style>` element that I've created just for you. Do what you wish with it.
 * `svg` - the `<svg>` element in which the editor is housed.
 * `dragsvg` - the `<svg>` element where blocks go while you drag them.
 * `defs` - the `<defs>` element where you'll find filters and things.
-* `allBlocks` - an array of all the blocks in the SVGs. Note that this includes inputs.
