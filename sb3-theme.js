@@ -16,6 +16,7 @@ function Sb3Theme() {
 
   this._initSVG = function() {
     this.svg = document.querySelector('svg.blocklySvg');
+    this.dragsvg = document.querySelector('svg.blocklyDragSurface');
 
     this.css = document.createElement("style");
     document.body.appendChild(this.css);
@@ -29,7 +30,12 @@ function Sb3Theme() {
     //set up an observer for future changes to the document
     var draggableCount = -1;
     var observer = new MutationObserver(function(mutations) {
-      self.draggables = self.svg.querySelectorAll(".blocklyDraggable")
+      self.draggables = Array.prototype.slice.call(self.svg.querySelectorAll(".blocklyDraggable"));
+      var dragdrag = self.dragsvg.querySelectorAll(".blocklyDraggable");
+      for(let i = 0; i < dragdrag.length; i++) {
+        self.draggables.push(dragdrag[i]);
+      }
+      console.log(self.draggables);
       if(draggableCount != self.draggables.length) {
         draggableCount = self.draggables.length;
         for(i in onChanges) {

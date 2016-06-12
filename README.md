@@ -124,5 +124,6 @@ Result:
 
 * `css` - a `<style>` element that I've created just for you. Do what you wish with it.
 * `svg` - the `<svg>` element in which the editor is housed.
+* `dragsvg` - the `<svg>` element where blocks go while you drag them.
 * `defs` - the `<defs>` element where you'll find filters and things.
-* `draggables` - a NodeList of all the elements in the SVG with have the class `blocklyDraggable`. You probably don't need to worry about this, it's mostly used internally
+* `draggables` - an array of all the elements in the SVGs with have the class `blocklyDraggable`. You probably don't need to worry about this, it's mostly used internally.
