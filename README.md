@@ -63,7 +63,7 @@ t.addOnChange(function() {
   // find all the SVG groups with the fill color #FFAB19 (the color for control blocks)
   var controls = t.getBlocksWithFillColor('#FFAB19');
 
-  // give them all the class name "myRepeats"
+  // give them all the class name "black"
   controls.forEach(function(elem) {
     elem.classList.add("black");
   });
