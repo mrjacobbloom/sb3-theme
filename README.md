@@ -47,7 +47,7 @@ var t = new Sb3Theme();
 // "addInit" funcions only run when the editor is first opened
 t.addInit(function() {
 
-  // using CSS, change the styles for all <path> elements directly inside elements with the class "black"
+  // using CSS, change the styles for children of elements with the class "black"
   t.css.innerHTML += `
   .black > path {
     fill: black;
