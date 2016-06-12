@@ -2,7 +2,7 @@ This set of tools should make it easier to write themes/skins for [Scratch-Block
 
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
-# Installation
+# Getting Started
 The easiest way to play with this right now is to download or clone this repo. There's a copy of the Scratch-Blocks repo inside of the `tests` folder, where you can tinker with it.
 
 If you really want your own copy, download the above file called `sb3-theme.js` and insert it into your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I might put this on gh-pages so you can just link it.
