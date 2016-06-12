@@ -7,43 +7,7 @@ The easiest way to play with this right now is to download or clone this repo. T
 
 If you really want your own copy, download the above file called `sb3-theme.js` and insert it into your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I might put this on gh-pages so you can just link it.
 
-# Examples
-## blur the repeat block
-```javascript
-//initialize a new Sb3Theme object and store it in the variable "t"
-var t = new Sb3Theme();
-
-// "addInit" functions only run when the editor is first opened
-t.addInit(function() {
-
-  // add a blur filter to the SVG
-  t.addFilter(`<filter id="myFilter">
-    <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
-  </filter>`);
-
-  // using CSS, add the filter to all <path> elements directly inside elements with the class "myRepeats"
-  t.css.innerHTML += `.myRepeats > path {
-    filter: url(#myFilter);
-  }`;
-});
-
-// "addOnChange" functions run whenever the number of blocks changes
-t.addOnChange(function() {
-
-  // find all the SVG groups with the word "repeat"
-  var repeats = t.getBlocksWithText('repeat times');
-
-  // give them all the class name "myRepeats"
-  repeats.forEach(function(elem) {
-    elem.classList.add("myRepeats");
-  });
-});
-```
-Result:
-
-![repeat block with blur filter](resources/blurred-repeat.png)
-
-
+# Example
 ## make control blocks black
 ```javascript
 //initialize a new Sb3Theme object and store it in the variable "t"
@@ -79,36 +43,7 @@ Result:
 ![repeat block with black fill](resources/black-serif-repeat.png)
 ![black blocks in the horizontal editor](resources/black-flyout.png)
 
-## make stop block big
-```javascript
-//initialize a new Sb3Theme object and store it in the variable "t"
-var t = new Sb3Theme();
-
-// "addInit" functions only run when the editor is first opened
-t.addInit(function() {
-
-  // using CSS, change the styles for children of elements with the class "stop"
-  t.css.innerHTML += `
-  .stop > path {
-    transform: scale(1.5);
-  }`
-});
-
-// "addOnChange" functions run whenever the number of blocks changes
-t.addOnChange(function() {
-
-  // find all the SVG groups with the icon 'control_stop.svg'
-  var stops = t.getBlocksWithIcon('control_stop.svg');
-
-  // give them all the class name "stop"
-  stops.forEach(function(elem) {
-    elem.classList.add("stop");
-  });
-});
-```
-Result:
-
-![a large stop block in horizontal mode](resources/big-stop.png)
+#### [For more examples, see the wiki.](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples)
 
 # Methods and Properties
 ## Methods
