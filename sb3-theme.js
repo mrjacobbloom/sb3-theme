@@ -89,4 +89,19 @@ function Sb3Theme() {
     return result;
   }
 
+  this.getBlocksWithIcon = function(query) {
+    var result = [];
+    for(let i = 0; i < this.draggables.length; i++) {
+      let images = this.draggables[i].querySelectorAll(':scope > g > image');
+      for(let j = 0; j < images.length; j++) {
+        console.log(!!images[j].getAttribute('xlink:href').match(query) + " " + images[j].getAttribute('xlink:href'));
+        if(images[j].getAttribute('xlink:href').match(query)) {
+          result.push( this.draggables[i] );
+        }
+      }
+    }
+    console.log("-")
+    return result;
+  }
+
 }

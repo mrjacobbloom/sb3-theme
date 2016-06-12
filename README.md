@@ -13,7 +13,7 @@ Eventually, I might put this on gh-pages so you can just link it.
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
 
-// "addInit" funcions only run when the editor is first opened
+// "addInit" functions only run when the editor is first opened
 t.addInit(function() {
 
   // add a blur filter to the SVG
@@ -49,7 +49,7 @@ Result:
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
 
-// "addInit" funcions only run when the editor is first opened
+// "addInit" functions only run when the editor is first opened
 t.addInit(function() {
 
   // using CSS, change the styles for children of elements with the class "black"
@@ -79,7 +79,36 @@ Result:
 ![repeat block with black fill](resources/black-serif-repeat.png)
 ![black blocks in the horizontal editor](resources/black-flyout.png)
 
+## make stop block big
+```javascript
+//initialize a new Sb3Theme object and store it in the variable "t"
+var t = new Sb3Theme();
 
+// "addInit" functions only run when the editor is first opened
+t.addInit(function() {
+
+  // using CSS, change the styles for children of elements with the class "stop"
+  t.css.innerHTML += `
+  .stop > path {
+    transform: scale(1.5);
+  }`
+});
+
+// "addOnChange" functions run whenever the number of blocks changes
+t.addOnChange(function() {
+
+  // find all the SVG groups with the icon 'control_stop.svg'
+  var stops = t.getBlocksWithIcon('control_stop.svg');
+
+  // give them all the class name "stop"
+  stops.forEach(function(elem) {
+    elem.classList.add("stop");
+  });
+});
+```
+Result:
+
+![a large stop block in horizontal mode](resources/big-stop.png)
 
 # Methods and Properties
 ## Methods
@@ -89,6 +118,7 @@ Result:
 * `addFilter()` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents
 * `getBlocksWithText(text)` - returns an array of SVG groups whose text contains the text `text`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
 * `getBlocksWithFillColor(color)` - returns an array of SVG groups whose path (background) color matches `color`. You can use color names, RGB[A], HSL, you name it. Again, note that this returns groups.
+* `getBlocksWithIcon(text)` - returns an array of SVG groups whose icon URL contains the substring `text`. Once again, its groups, not paths.
 
 ## Properties
 

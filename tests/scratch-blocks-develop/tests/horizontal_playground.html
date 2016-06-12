@@ -234,25 +234,22 @@
     // "addInit" funcions only run when the editor is first opened
     t.addInit(function() {
 
-      // using CSS, change the styles for children of elements with the class "black"
+      // using CSS, change the styles for children of elements with the class "stop"
       t.css.innerHTML += `
-      .black > path {
-        fill: black;
-      }
-      .black > text {
-        font-family: serif;
-      }`;
+      .stop > path {
+        transform: scale(1.5);
+      }`
     });
 
     // "addOnChange" functions run whenever the number of blocks changes
     t.addOnChange(function() {
 
       // find all the SVG groups with the fill color #FFAB19 (the color for control blocks)
-      var controls = t.getBlocksWithFillColor('#FFAB19');
+      var stops = t.getBlocksWithIcon('control_stop.svg');
 
-      // give them all the class name "myRepeats"
-      controls.forEach(function(elem) {
-        elem.classList.add("black");
+      // give them all the class name "stop"
+      stops.forEach(function(elem) {
+        elem.classList.add("stop");
       });
     });
     </script>
