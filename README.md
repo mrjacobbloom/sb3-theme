@@ -18,7 +18,7 @@ t.addInit(function() {
 
   // using CSS, add the filter to all <path> elements directly inside elements with the class "myRepeats"
   t.css.innerHTML += `.myRepeats > path {
-    filter: url(#myFilter)
+    filter: url(#myFilter);
   }`;
 });
 
