@@ -26,18 +26,14 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
 
-// "addInit" functions only run when the editor is first opened
-t.addInit(function() {
-
-  // using CSS, change the styles for children of elements with the class "black"
-  t.css.innerHTML += `
-  .control > path {
-    fill: black;
-  }
-  .control > text {
-    font-family: serif;
-  }`;
-});
+// using CSS, change the styles for children of elements with the class "black"
+t.css.innerHTML += `
+.control > path {
+  fill: black;
+}
+.control > text {
+  font-family: serif;
+}`;
 ```
 Result:
 

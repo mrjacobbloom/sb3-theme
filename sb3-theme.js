@@ -21,15 +21,16 @@ function Sb3Theme() {
       "201": "cend",
       "360": "celse"
     }
-  }
+  };
   var categoryColors = {
     "#4CBF56": "operators",
     "#9966FF": "looks",
     "#4C97FF": "motion",
     "#FFAB19": "control",
     "#FFD500": "events"
-  }
-
+  };
+  this.css = document.createElement("style");
+  document.head.appendChild(this.css);
 
   // hang out until the SVG exists, then run the init function
   var initObserver = new MutationObserver(function(mutations) {
@@ -48,9 +49,6 @@ function Sb3Theme() {
   this._initSVG = function() {
     this.svg = document.querySelector('svg.blocklySvg');
     this.dragsvg = document.querySelector('svg.blocklyDragSurface');
-
-    this.css = document.createElement("style");
-    document.body.appendChild(this.css);
 
     this.NS = Blockly.SVG_NS;
     this.defs = this.svg.getElementsByTagName('defs')[0];
