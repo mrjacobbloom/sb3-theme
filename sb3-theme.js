@@ -1,3 +1,4 @@
+'use strict';
 function Sb3Theme() {
   var self = this;
   var vertexCounts = {
@@ -57,44 +58,42 @@ function Sb3Theme() {
     }
 
     //set up an observer for future changes to the document
-    var draggableCount = -1;
     var observer = new MutationObserver(function(mutations) {
       self.allBlocks = Array.prototype.slice.call(self.svg.querySelectorAll(".blocklyDraggable"));
-      var dragdrag = self.dragsvg.querySelectorAll(".blocklyDraggable"); //cast that noelist to an array so I can merge it with this other nodelist
-      for(let i = 0; i < dragdrag.length; i++) {
-        self.allBlocks.push(dragdrag[i]);
-      }
-      var flyoutVisibility = self.svg.getElementsByClassName("blocklyFlyout")[0].style.display == "block";
-      if(flyoutVisibility || draggableCount != self.allBlocks.length) {
-        draggableCount = self.allBlocks.length;
-        onChange();
+      let dragged = Array.prototype.slice.call(self.dragsvg.querySelectorAll(".blocklyDraggable"));
+      self.allBlocks = self.allBlocks.concat(dragged);
+      self.horizontal = Blockly.mainWorkspace.horizontalLayout;
+
+      for(let m = 0; m < mutations.length; m++) {
+        for(let n = 0; n < mutations[m].addedNodes.length; n++) {
+          if(mutations[m].addedNodes[n].classList.contains("blocklyDraggable")) {
+            onChange(mutations[m].addedNodes[n]);
+          }
+        }
       }
     });
 
     observer.observe(this.svg, {childList: true, subtree: true});
   }
 
-  var onChange = function() {
-    self.horizontal = Blockly.mainWorkspace.horizontalLayout;
+  var onChange = function(block) {
 
-    for(let i in self.allBlocks) {
-      let path = self.allBlocks[i].querySelector(":scope > path");
+    let path = block.querySelector(":scope > path");
 
-      let vertexCount = path.getAttribute("d").match(/,| /g).length;
-      let shapeName = vertexCounts[self.horizontal.toString()][vertexCount];
-      if(shapeName) {
-        self.allBlocks[i].classList.add(shapeName);
-      }
+    let vertexCount = path.getAttribute("d").match(/,| /g).length;
+    let shapeName = vertexCounts[self.horizontal.toString()][vertexCount];
+    if(shapeName) {
+      block.classList.add(shapeName);
+    }
 
-      let colorName = categoryColors[path.getAttribute("fill")];
-      if(colorName) {
-        self.allBlocks[i].classList.add(colorName);
-      }
+    let colorName = categoryColors[path.getAttribute("fill")];
+    if(colorName) {
+      block.classList.add(colorName);
+    }
 
-      let inputs = self.allBlocks[i].querySelectorAll(':scope > g > g.blocklyEditableText');
-      for(let j = 0; j < inputs.length; j++) {
-        inputs[j].parentNode.classList.add("input");
-      }
+    let inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
+    for(let j = 0; j < inputs.length; j++) {
+      inputs[j].parentNode.classList.add("input");
     }
 
     for(let i in onChanges) {
