@@ -26,7 +26,7 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 //initialize a new Sb3Theme object and store it in the variable "t"
 var t = new Sb3Theme();
 
-// using CSS, change the styles for children of elements with the class "black"
+// using CSS, style blocks with the class "control"
 t.css.innerHTML += `
 .control > path {
   fill: black;
