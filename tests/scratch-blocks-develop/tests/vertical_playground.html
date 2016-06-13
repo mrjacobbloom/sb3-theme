@@ -256,30 +256,17 @@
     //initialize a new Sb3Theme object and store it in the variable "t"
     var t = new Sb3Theme();
 
-    // "addInit" funcions only run when the editor is first opened
+    // "addInit" functions only run when the editor is first opened
     t.addInit(function() {
 
-      // using CSS, change the fill color to black for all <path> elements directly inside elements with the class "black"
+      // using CSS, change the styles for children of elements with the class "black"
       t.css.innerHTML += `
-      .black > path {
+      .control > path {
         fill: black;
       }
-      .black > text {
+      .control > text {
         font-family: serif;
-        fill: red;
       }`;
-    });
-
-    // "addOnChange" functions run whenever the number of blocks changes
-    t.addOnChange(function() {
-
-      // find all the SVG groups with the fill color #FFAB19
-      var repeats = t.getBlocksWithShape("c");
-
-      // give them all the class name "myRepeats"
-      repeats.forEach(function(elem) {
-        elem.classList.add("black");
-      });
     });
 
     </script>

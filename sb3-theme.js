@@ -1,7 +1,37 @@
 function Sb3Theme() {
+  var self = this;
+  var vertexCounts = {
+    "true": {
+      "117": "stack",
+      "81": "cap",
+      "-1": "boolean",
+      "-2": "reporter",
+      "77": "hat",
+      "233": "cblock",
+      "197": "cend",
+      "-3": "celse"
+    },
+    "false": {
+      "120": "stack",
+      "80": "cap",
+      "22": "boolean",
+      "26": "reporter",
+      "81": "hat",
+      "239": "cblock",
+      "201": "cend",
+      "360": "celse"
+    }
+  }
+  var categoryColors = {
+    "#4CBF56": "operators",
+    "#9966FF": "looks",
+    "#4C97FF": "motion",
+    "#FFAB19": "control",
+    "#FFD500": "events"
+  }
+
 
   // hang out until the SVG exists, then run the init function
-  var self = this;
   var initObserver = new MutationObserver(function(mutations) {
     if(document.querySelector('svg.blocklySvg')) {
       initObserver.disconnect();
@@ -37,16 +67,36 @@ function Sb3Theme() {
         self.allBlocks.push(dragdrag[i]);
       }
       var flyoutVisibility = self.svg.getElementsByClassName("blocklyFlyout")[0].style.display == "block";
-      self.horizontal = Blockly.mainWorkspace.horizontalLayout;
       if(flyoutVisibility || draggableCount != self.allBlocks.length) {
         draggableCount = self.allBlocks.length;
-        for(i in onChanges) {
-          onChanges[i]();
-        }
+        onChange();
       }
     });
 
     observer.observe(this.svg, {childList: true, subtree: true});
+  }
+
+  var onChange = function() {
+    self.horizontal = Blockly.mainWorkspace.horizontalLayout;
+
+    for(let i in self.allBlocks) {
+      let path = self.allBlocks[i].querySelector(":scope > path");
+
+      let vertexCount = path.getAttribute("d").match(/,| /g).length;
+      let shapeName = vertexCounts[self.horizontal.toString()][vertexCount];
+      if(shapeName) {
+        self.allBlocks[i].classList.add(shapeName);
+      }
+
+      let colorName = categoryColors[path.getAttribute("fill")];
+      if(colorName) {
+        self.allBlocks[i].classList.add(colorName);
+      }
+    }
+
+    for(let i in onChanges) {
+      onChanges[i]();
+    }
   }
 
   var onLoads = [];
@@ -81,22 +131,6 @@ function Sb3Theme() {
     return result;
   }
 
-  this.getBlocksWithFillColor = function(query) {
-    var result = [];
-
-    //convert fill color to RGB by coloring our hidden style element
-    this.css.setAttribute("style", "background-color: " + query + ";");
-    var rgbColor = document.defaultView.getComputedStyle(this.css, null).getPropertyValue("background-color");
-
-    for(let i = 0; i < this.allBlocks.length; i++) {
-      let path = this.allBlocks[i].getElementsByTagName('path')[0];
-      if(rgbColor == document.defaultView.getComputedStyle(path, null).getPropertyValue("fill")) {
-        result.push( this.allBlocks[i] );
-      }
-    }
-    return result;
-  }
-
   this.getBlocksWithIcon = function(query) {
     var result = [];
     for(let i = 0; i < this.allBlocks.length; i++) {
@@ -110,40 +144,6 @@ function Sb3Theme() {
     return result;
   }
 
-  this.getBlocksWithShape = function(shape) {
-    var result = [],
-      vertexCounts = {
-        "true": {
-        	"w": 117,
-        	"f": 81,
-        	"b": 0, // horizontal reporters don't exist yet
-        	"r": 0,
-        	"h": 77,
-        	"c": 233,
-        	"cf": 197,
-        	"e": 0
-        },
-        "false": {
-        	"w": 120,
-        	"f": 80,
-        	"b": 22,
-        	"r": 26,
-        	"h": 81,
-        	"c": 239,
-        	"cf": 201,
-        	"e": 360
-        }
-      },
-      shapeVerts = vertexCounts[this.horizontal.toString()][shape];
-
-    for(let i = 0; i < this.allBlocks.length; i++) {
-      let path = this.allBlocks[i].getElementsByTagName('path')[0];
-      if(shapeVerts == path.getAttribute("d").match(/,| /g).length) {
-        result.push( this.allBlocks[i] );
-      }
-    }
-    return result;
-  }
 
   this.getInputs = function(query) {
     var result = [];
