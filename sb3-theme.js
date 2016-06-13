@@ -95,7 +95,14 @@ function Sb3Theme() {
 
     let inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
     for(let j = 0; j < inputs.length; j++) {
-      inputs[j].parentNode.classList.add("input");
+      let input = inputs[j].parentNode;
+      input.classList.add("input");
+
+      /*let inputVertexCount = input.getElementsByTagName("path")[0].getAttribute("d").match(/,| /g).length;
+      let inputShapeName = vertexCounts[self.horizontal.toString()][inputVertexCount];
+      if(inputShapeName) {
+        input.classList.add(shapeName);
+      }*/
     }
 
     for(let i in onChanges) {

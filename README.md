@@ -10,7 +10,8 @@ Once it's initialized, sb3-theme will add classes to every block so you can easi
   * `stack`
   * `cap`
   * `boolean`
-  * `reporter`
+  * `number` - formerly reporter, but now there's a string reporter shape
+  * `string` - this is new. It's rectangular to match the input
   * `hat`
   * `cblock` - a normal c-block, like `if` or `repeat until`
   * `cend` - a terminal c-block, like `forever`
