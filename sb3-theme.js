@@ -32,8 +32,6 @@ function Sb3Theme() {
     "#FFAB19": "control",
     "#FFD500": "events"
   };
-  this.css = document.createElement("style");
-  document.head.appendChild(this.css);
 
   // hang out until the SVG exists, then run the init function
   var initObserver = new MutationObserver(function(mutations) {
@@ -156,3 +154,5 @@ function Sb3Theme() {
   }
 
 }
+
+window.sb3theme = new Sb3Theme();
