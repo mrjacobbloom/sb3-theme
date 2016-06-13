@@ -1,9 +1,9 @@
-This set of tools should make it easier to write themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It might work for vanilla Blockly too, but I haven't tested it there.
+This is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It might work for vanilla Blockly too, but I haven't tested it there.
 
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # How it works
-Once it's initialized, sb3-theme will automatically add classes so you can easily style them with CSS. It adds classes for the following:
+Once it's initialized, sb3-theme will add classes to every block so you can easily style them with CSS. It adds classes for the following:
 * category name
 * if it's an input, it adds the class `input`
 * the following block shapes:
