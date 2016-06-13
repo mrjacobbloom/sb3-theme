@@ -30,6 +30,7 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 var t = new Sb3Theme();
 
 // using CSS, style blocks with the class "control"
+// (sb3-theme creates a style element for you)
 t.css.innerHTML += `
 .control > path {
   fill: black;
