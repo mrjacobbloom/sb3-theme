@@ -3,15 +3,18 @@ This set of tools should make it easier to write themes/skins for [Scratch-Block
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # How it works
-Once it's initialized, sb3-theme will automatically add classes so you can easily style them with CSS. It adds classes for the category names, and also the block shapes:
-* stack
-* cap
-* boolean
-* reporter
-* hat
-* cblock - a normal c-block, like `if` or `repeat until`
-* cend - a terminal c-block, like `forever`
-* celse - an if-else block
+Once it's initialized, sb3-theme will automatically add classes so you can easily style them with CSS. It adds classes for the following:
+* category name
+* if it's an input, it adds the class `input`
+* the following block shapes:
+  * `stack`
+  * `cap`
+  * `boolean`
+  * `reporter`
+  * `hat`
+  * `cblock` - a normal c-block, like `if` or `repeat until`
+  * `cend` - a terminal c-block, like `forever`
+  * `celse` - an if-else block
 
 It also includes many other functions that make styling easier.
 
@@ -50,7 +53,6 @@ Result:
 * `addFilter(string)` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents.
 * `getBlocksWithText(string)` - returns an array of SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `repeat times`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
 * `getBlocksWithIcon(string)` - returns an array of SVG groups whose icon URL contains the substring `string`. Once again, it's groups, not paths.
-* `getInputs(array)` - takes an array of blocks and returns an array of the inputs within those blocks.
 
 ## Properties
 

@@ -90,6 +90,11 @@ function Sb3Theme() {
       if(colorName) {
         self.allBlocks[i].classList.add(colorName);
       }
+
+      let inputs = self.allBlocks[i].querySelectorAll(':scope > g > g.blocklyEditableText');
+      for(let j = 0; j < inputs.length; j++) {
+        inputs[j].parentNode.classList.add("input");
+      }
     }
 
     for(let i in onChanges) {
@@ -137,18 +142,6 @@ function Sb3Theme() {
         if(images[j].getAttribute('xlink:href').match(query)) {
           result.push( this.allBlocks[i] );
         }
-      }
-    }
-    return result;
-  }
-
-
-  this.getInputs = function(query) {
-    var result = [];
-    for(let i = 0; i < query.length; i++) {
-      let texts = query[i].querySelectorAll(':scope > g > g.blocklyEditableText');
-      for(let j = 0; j < texts.length; j++) {
-        result.push( texts[j].parentNode );
       }
     }
     return result;
