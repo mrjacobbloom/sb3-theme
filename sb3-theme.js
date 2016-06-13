@@ -6,7 +6,8 @@ function Sb3Theme() {
       "117": "stack",
       "81": "cap",
       "-1": "boolean",
-      "-2": "reporter",
+      "-2": "number",
+      "-4": "string",
       "77": "hat",
       "233": "cblock",
       "197": "cend",
@@ -16,9 +17,10 @@ function Sb3Theme() {
       "120": "stack",
       "80": "cap",
       "22": "boolean",
-      "26": "reporter",
+      "26": "number",
+      "42": "string",
       "81": "hat",
-      "239": "cblock",
+      "241": "cblock",
       "201": "cend",
       "360": "celse"
     }
@@ -53,7 +55,7 @@ function Sb3Theme() {
 
     this.NS = Blockly.SVG_NS;
     this.defs = this.svg.getElementsByTagName('defs')[0];
-    for(i in onLoads) {
+    for(let i = 0; i < onLoads.length; i++) {
       onLoads[i]();
     }
 
