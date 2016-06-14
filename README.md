@@ -12,7 +12,7 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 ```html
 <script src="sb3-theme.js"></script>
 <style>
-.control > .block-background {
+.control .block-background {
   fill: black;
 }
 .control > text {

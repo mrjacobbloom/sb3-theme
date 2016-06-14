@@ -110,7 +110,7 @@ function Sb3Theme() {
     //empty bool inputs should all have the same d attribute
     var bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
     for(let j = 0; j < bools.length; j++) {
-      bools[j].classList.add("input", "input-boolean");
+      bools[j].classList.add("input", "input-boolean", "input-background");
     }
 
     var inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
