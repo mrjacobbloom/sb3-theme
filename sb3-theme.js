@@ -66,6 +66,7 @@ function Sb3Theme() {
     //set up an observer for future changes to the document
     var observer = new MutationObserver(function(mutations) {
       self.newBlocks = [];
+      self.newInputs = [];
       self.horizontal = Blockly.mainWorkspace.horizontalLayout;
 
       for(let m = 0; m < mutations.length; m++) {
@@ -111,6 +112,7 @@ function Sb3Theme() {
     var bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
     for(let j = 0; j < bools.length; j++) {
       bools[j].classList.add("input", "input-boolean", "input-background");
+      self.newInputs.push(bools[j]);
     }
 
     var inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
@@ -123,6 +125,7 @@ function Sb3Theme() {
     if(block) {
       var input = block.parentNode;
       input.classList.add("input");
+      self.newInputs.push(input);
 
       var path = input.querySelector(":scope > path");
       path.classList.add("input-background");

@@ -42,5 +42,6 @@ sb3-theme will store itself in a global object called `sb3theme`. So, to access 
 None of these properties can be accessed immediately when sb3-theme is initialized. You can access them from within an onChange function.
 
 * `newBlocks` - an array of blocks that have been added in the last onChange event.
+* `newInputs` - an array of inputs that have been added in the last onChange event.
 * `horizontal` - true if you're in horizontal mode.
 * `svg` - the `<svg>` element in which the editor is housed.
