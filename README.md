@@ -12,7 +12,7 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 ```html
 <script src="sb3-theme.js"></script>
 <style>
-.control > path:first-child { /* being specific to avoid interfering with inputs */
+.control > .block-background {
   fill: black;
 }
 .control > text {
@@ -41,6 +41,6 @@ sb3-theme will store itself in a global object called `sb3theme`. So, to access 
 
 None of these properties can be accessed immediately when sb3-theme is initialized. You can access them from within an onChange function.
 
-* `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this may include inputs under certain circumstances.
+* `newBlocks` - an array of blocks that have been added in the last onChange event.
 * `horizontal` - true if you're in horizontal mode.
 * `svg` - the `<svg>` element in which the editor is housed.
