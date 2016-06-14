@@ -40,4 +40,3 @@ Result:
 * `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this may include inputs under certain circumstances.
 * `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it immediately.
 * `svg` - the `<svg>` element in which the editor is housed.
-* `dragsvg` - the `<svg>` element where blocks go while you drag them.

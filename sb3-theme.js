@@ -54,12 +54,11 @@ function Sb3Theme() {
 
   var initSVG = function() {
     self.svg = document.querySelector('svg.blocklySvg');
-    self.dragsvg = document.querySelector('svg.blocklyDragSurface');
 
-    self.NS = Blockly.SVG_NS;
+    var ns = Blockly.SVG_NS;
     var defs = self.svg.getElementsByTagName('defs')[0];
     for(let i = 0; i < addFilters.length; i++) {
-      var doc = new DOMParser().parseFromString(`<svg xmlns="` + self.NS + `">` + addFilters[i] + `</svg>`, 'image/svg+xml');
+      var doc = new DOMParser().parseFromString(`<svg xmlns="` + ns + `">` + addFilters[i] + `</svg>`, 'image/svg+xml');
       defs.appendChild( defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
     }
 
