@@ -294,31 +294,14 @@
 
     <script src="../../../sb3-theme.js"></script>
     <style>
-      .myRepeats > path {
-        filter: url(#myFilter);
-      }
+    path.input, .input path { /* there are a bunch of kinds of inputs to cover here */
+      fill: black;
+    }
+    .input text {
+      font-family: serif;
+      fill: red !important;
+    }
     </style>
-    <script>
-    sb3theme.addInit(function() {
-      // add a blur filter to the SVG
-      sb3theme.addFilter(`<filter id="myFilter">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
-      </filter>`);
-
-    });
-
-    // "addOnChange" functions run whenever the number of blocks changes
-    sb3theme.addOnChange(function() {
-
-      // find all the SVG groups with the word "repeat"
-      var repeats = sb3theme.getBlocksWithText('repeat');
-
-      // give them all the class name "myRepeats"
-      repeats.forEach(function(elem) {
-        elem.classList.add("myRepeats");
-      });
-    });
-    </script>
   </head>
 
   <body onload="start()">
