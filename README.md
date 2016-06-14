@@ -1,4 +1,4 @@
-**sb3-theme** is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block so you can easily style them with CSS. For an explanation of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
+**sb3-theme** is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block so you can easily style them with CSS. For a list of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
@@ -39,7 +39,6 @@ Result:
 
 * `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this may include inputs under certain circumstances.
 * `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it immediately.
-* `css` - a `<style>` element that I've created just for you. Do what you wish with it. Or don't. It won't mind.
 * `svg` - the `<svg>` element in which the editor is housed.
 * `dragsvg` - the `<svg>` element where blocks go while you drag them.
 * `defs` - the `<defs>` element where you'll find filters and things.
