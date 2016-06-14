@@ -41,4 +41,3 @@ Result:
 * `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it immediately.
 * `svg` - the `<svg>` element in which the editor is housed.
 * `dragsvg` - the `<svg>` element where blocks go while you drag them.
-* `defs` - the `<defs>` element where you'll find filters and things.

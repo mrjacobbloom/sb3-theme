@@ -42,25 +42,25 @@ function Sb3Theme() {
   var initObserver = new MutationObserver(function(mutations) {
     if(document.querySelector('svg.blocklySvg')) {
       initObserver.disconnect();
-      self._initSVG();
+      initSVG();
     }
   });
 
   if(document.querySelector('svg.blocklySvg')) {
-    this._initSVG();
+    initSVG();
   } else {
     initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
   }
 
-  this._initSVG = function() {
-    this.svg = document.querySelector('svg.blocklySvg');
-    this.dragsvg = document.querySelector('svg.blocklyDragSurface');
+  var initSVG = function() {
+    self.svg = document.querySelector('svg.blocklySvg');
+    self.dragsvg = document.querySelector('svg.blocklyDragSurface');
 
-    this.NS = Blockly.SVG_NS;
-    this.defs = this.svg.getElementsByTagName('defs')[0];
+    self.NS = Blockly.SVG_NS;
+    var defs = self.svg.getElementsByTagName('defs')[0];
     for(let i = 0; i < addFilters.length; i++) {
-      var doc = new DOMParser().parseFromString(`<svg xmlns="` + this.NS + `">` + addFilters[i] + `</svg>`, 'image/svg+xml');
-      this.defs.appendChild( this.defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
+      var doc = new DOMParser().parseFromString(`<svg xmlns="` + self.NS + `">` + addFilters[i] + `</svg>`, 'image/svg+xml');
+      defs.appendChild( defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
     }
 
     //set up an observer for future changes to the document
@@ -87,7 +87,7 @@ function Sb3Theme() {
       }
     });
 
-    observer.observe(this.svg, {childList: true, subtree: true});
+    observer.observe(self.svg, {childList: true, subtree: true});
   }
 
   var styleBlock = function(block) {
