@@ -1,11 +1,11 @@
 **sb3-theme** is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block so you can easily style them with CSS. For an explanation of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
 
-This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
+Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # Getting Started
-The easiest way to play with this right now is to download or clone this repo. There's a copy of the Scratch-Blocks repo inside of the `tests` folder, where you can tinker with it.
+The easiest way to play with this right now is to download or clone this repository. There's a hacked copy of the Scratch-Blocks repo inside of the `tests` folder, where you can tinker with it.
 
-If you really want your own copy, download the above file called `sb3-theme.js` and insert it into your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I might put this on gh-pages so you can just link it.
+If you really want your own copy, download the above file called `sb3-theme.js` and link to it in your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I might put this on github pages so you can just link it.
 
 # Example
 ## make control blocks black
