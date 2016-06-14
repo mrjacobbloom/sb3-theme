@@ -59,9 +59,7 @@ function Sb3Theme() {
 
     //set up an observer for future changes to the document
     var observer = new MutationObserver(function(mutations) {
-      self.allBlocks = Array.prototype.slice.call(self.svg.querySelectorAll(".blocklyDraggable"));
-      let dragged = Array.prototype.slice.call(self.dragsvg.querySelectorAll(".blocklyDraggable"));
-      self.allBlocks = self.allBlocks.concat(dragged);
+      self.newBlocks = [];
       self.horizontal = Blockly.mainWorkspace.horizontalLayout;
 
       for(let m = 0; m < mutations.length; m++) {
@@ -71,12 +69,18 @@ function Sb3Theme() {
           }
         }
       }
+      if(self.newBlocks.length) {
+        for(let i in onChanges) {
+          onChanges[i]();
+        }
+      }
     });
 
     observer.observe(this.svg, {childList: true, subtree: true});
   }
 
   var onChange = function(block) {
+    self.newBlocks.push(block);
 
     let path = block.querySelector(":scope > path");
 
@@ -102,10 +106,6 @@ function Sb3Theme() {
         input.classList.add(shapeName);
       }*/
     }
-
-    for(let i in onChanges) {
-      onChanges[i]();
-    }
   }
 
   var onLoads = [];
@@ -124,9 +124,9 @@ function Sb3Theme() {
 
   this.getBlocksWithText = function(query) {
     var result = [];
-    for(let i = 0; i < this.allBlocks.length; i++) {
+    for(let i = 0; i < this.newBlocks.length; i++) {
       let text = "";
-      let children = this.allBlocks[i].children;
+      let children = this.newBlocks[i].children;
       for(let j = 0; j < children.length; j++) {
         if(children[j].tagName.match(/text/i)) {
           text += " " + children[j].textContent;
@@ -134,7 +134,7 @@ function Sb3Theme() {
       }
       text = text.replace(/(&nbsp;|  +)/g, " ")
       if(text.match(query)) {
-        result.push( this.allBlocks[i] );
+        result.push( this.newBlocks[i] );
       }
     }
     return result;
@@ -142,11 +142,11 @@ function Sb3Theme() {
 
   this.getBlocksWithIcon = function(query) {
     var result = [];
-    for(let i = 0; i < this.allBlocks.length; i++) {
-      let images = this.allBlocks[i].querySelectorAll(':scope > g > image');
+    for(let i = 0; i < this.newBlocks.length; i++) {
+      let images = this.newBlocks[i].querySelectorAll(':scope > g > image');
       for(let j = 0; j < images.length; j++) {
         if(images[j].getAttribute('xlink:href').match(query)) {
-          result.push( this.allBlocks[i] );
+          result.push( this.newBlocks[i] );
         }
       }
     }

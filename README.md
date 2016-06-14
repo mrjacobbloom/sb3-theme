@@ -58,8 +58,8 @@ Result:
 
 ## Properties
 
-* `allBlocks` - an array of all the blocks in the SVGs. Note that this includes inputs.
-* `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it in an addInit function.
+* `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this includes inputs.
+* `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it immediately.
 * `css` - a `<style>` element that I've created just for you. Do what you wish with it. Or don't. It won't mind.
 * `svg` - the `<svg>` element in which the editor is housed.
 * `dragsvg` - the `<svg>` element where blocks go while you drag them.
