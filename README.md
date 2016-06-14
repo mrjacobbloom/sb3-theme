@@ -29,7 +29,7 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 ```html
 <script src="sb3-theme.js"></script>
 <style>
-.control > path {
+.control > path { /* use the child selector to avoid interfering with inputs */
   fill: black;
 }
 .control > text {
