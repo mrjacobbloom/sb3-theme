@@ -3,14 +3,14 @@ This is a set of tools that makes it easy to create themes/skins for [Scratch-Bl
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # How it works
-Once it's initialized, sb3-theme will add classes to every block so you can easily style them with CSS. It adds classes for the following:
+sb3-theme adds classes to every block so you can easily style them with CSS. It adds classes for the following:
 * category name
-* if it's an input, it adds the class `input`
+* if it's an input, it adds the class `input`. Someday it'll also add the input type.
 * the following block shapes:
   * `stack`
   * `cap`
   * `boolean`
-  * `number` - formerly reporter, but now there's a string reporter shape
+  * `number` - formerly reporter, but now there's a string-reporter shape
   * `string` - this is new. It's rectangular to match the input
   * `hat`
   * `cblock` - a normal c-block, like `if` or `repeat until`
