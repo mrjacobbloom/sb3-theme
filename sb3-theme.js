@@ -93,26 +93,27 @@ function Sb3Theme() {
   var styleBlock = function(block) {
     self.newBlocks.push(block);
 
-    let path = block.querySelector(":scope > path");
+    var path = block.querySelector(":scope > path");
+    path.classList.add("block-background");
 
-    let vertexCount = path.getAttribute("d").match(/,| /g).length;
-    let shapeName = vertexCounts[self.horizontal.toString()][vertexCount];
+    var vertexCount = path.getAttribute("d").match(/,| /g).length;
+    var shapeName = vertexCounts[self.horizontal.toString()][vertexCount];
     if(shapeName) {
       block.classList.add(shapeName);
     }
 
-    let colorName = categoryColors[path.getAttribute("fill")];
+    var colorName = categoryColors[path.getAttribute("fill")];
     if(colorName) {
       block.classList.add(colorName);
     }
 
     //empty bool inputs should all have the same d attribute
-    let bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
+    var bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
     for(let j = 0; j < bools.length; j++) {
       bools[j].classList.add("input", "input-boolean");
     }
 
-    let inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
+    var inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
     for(let j = 0; j < inputs.length; j++) {
       styleInput(inputs[j]);
     }
@@ -123,17 +124,20 @@ function Sb3Theme() {
       var input = block.parentNode;
       input.classList.add("input");
 
-      var inputVertexCount = input.getElementsByTagName("path")[0].getAttribute("d").match(/,| /g).length;
-      var inputShapeName = inputVertexCounts[inputVertexCount];
-      if(inputShapeName) {
-        if(inputShapeName == "input-string") {
+      var path = input.querySelector(":scope > path");
+      path.classList.add("input-background");
+
+      var vertexCount = path.getAttribute("d").match(/,| /g).length;
+      var shapeName = inputVertexCounts[vertexCount];
+      if(shapeName) {
+        if(shapeName == "input-string") {
           if(block.querySelector("text tspan")) {
             input.classList.add("input-dropdown");
           } else {
             input.classList.add("input-string");
           }
         } else {
-          input.classList.add(inputShapeName);
+          input.classList.add(shapeName);
         }
       }
     }
