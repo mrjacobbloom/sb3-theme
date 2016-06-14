@@ -1,4 +1,5 @@
 'use strict';
+
 function Sb3Theme() {
   var self = this;
   var vertexCounts = {
