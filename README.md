@@ -26,19 +26,16 @@ If you really want your own copy, download the above file called `sb3-theme.js` 
 
 # Example
 ## make control blocks black
-```javascript
-//initialize a new Sb3Theme object and store it in the variable "t"
-var t = new Sb3Theme();
-
-// using CSS, style blocks with the class "control"
-// (sb3-theme creates a style element for you)
-t.css.innerHTML += `
+```html
+<script src="sb3-theme.js"></script>
+<style>
 .control > path {
   fill: black;
 }
 .control > text {
   font-family: serif;
-}`;
+}
+</style>
 ```
 Result:
 
