@@ -3,25 +3,7 @@ This is a set of tools that makes it easy to create themes/skins for [Scratch-Bl
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # How it works
-sb3-theme adds classes to every block so you can easily style them with CSS. It adds classes to the `<group>` tags with the following information:
-* category name
-* if it's an input, it adds the class `input`. It also adds the input type:
-  * `input-number`
-  * `input-string`
-  * `input-dropdown`
-  * `input-boolean` - this will be on the path itself, as opposed to on a `<group>`
-* the following block shapes:
-  * `stack`
-  * `cap`
-  * `boolean`
-  * `number` - formerly reporter, but now there's a string-reporter shape
-  * `string` - this is new. It's rectangular to match the input
-  * `hat`
-  * `c-block` - a normal c-block, like `if` or `repeat until`
-  * `c-end` - a terminal c-block, like `forever`
-  * `c-else` - an if-else block
-
-It also includes many other functions that make styling easier.
+sb3-theme adds classes to every block so you can easily style them with CSS. For an explanation of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
 
 # Getting Started
 The easiest way to play with this right now is to download or clone this repo. There's a copy of the Scratch-Blocks repo inside of the `tests` folder, where you can tinker with it.
