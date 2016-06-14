@@ -58,8 +58,9 @@ function Sb3Theme() {
 
     this.NS = Blockly.SVG_NS;
     this.defs = this.svg.getElementsByTagName('defs')[0];
-    for(let i = 0; i < onLoads.length; i++) {
-      onLoads[i]();
+    for(let i = 0; i < addFilters.length; i++) {
+      var doc = new DOMParser().parseFromString(`<svg xmlns="` + this.NS + `">` + addFilters[i] + `</svg>`, 'image/svg+xml');
+      this.defs.appendChild( this.defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
     }
 
     //set up an observer for future changes to the document
@@ -138,18 +139,13 @@ function Sb3Theme() {
     }
   }
 
-  var onLoads = [];
-  this.addInit = function(func) {
-    onLoads.push(func);
-  }
   var onChanges = [];
   this.addOnChange = function(func) {
     onChanges.push(func);
   }
-
+  var addFilters = [];
   this.addFilter = function(filter) {
-    var doc = new DOMParser().parseFromString(`<svg xmlns="` + this.NS + `">` + filter + `</svg>`, 'image/svg+xml');
-    this.defs.appendChild( this.defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
+    addFilters.push(filter)
   }
 
   this.getBlocksWithText = function(query) {
