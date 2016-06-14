@@ -65,7 +65,8 @@ function Sb3Theme() {
 
       for(let m = 0; m < mutations.length; m++) {
         for(let n = 0; n < mutations[m].addedNodes.length; n++) {
-          if(mutations[m].addedNodes[n].classList.contains("blocklyDraggable")) {
+          let node = mutations[m].addedNodes[n]
+          if(node.nodeType == 1 && node.classList.contains("blocklyDraggable")) {
             onChange(mutations[m].addedNodes[n]);
           }
         }
