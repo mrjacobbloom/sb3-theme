@@ -31,6 +31,7 @@ function Sb3Theme() {
     "42": "input-string"
   };
   var categoryColors = {
+    "#FFFFFF": "insertion-marker",
     "#4CBF56": "operators",
     "#9966FF": "looks",
     "#4C97FF": "motion",
