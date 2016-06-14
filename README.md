@@ -3,6 +3,7 @@
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # Getting Started
+
 Download the above file called `sb3-theme.js` and link to it in your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I'll put this on github pages so you can just link to it.
 
 # Example
