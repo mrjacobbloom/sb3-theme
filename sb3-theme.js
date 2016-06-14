@@ -69,9 +69,13 @@ function Sb3Theme() {
 
       for(let m = 0; m < mutations.length; m++) {
         for(let n = 0; n < mutations[m].addedNodes.length; n++) {
-          let node = mutations[m].addedNodes[n]
-          if(node.nodeType == 1 && node.classList.contains("blocklyDraggable")) {
-            onChange(mutations[m].addedNodes[n]);
+          let node = mutations[m].addedNodes[n];
+          if(node.nodeType == 1) {
+            if(node.classList.contains("blocklyDraggable")) {
+              styleBlock(node);
+            } else {
+              styleInput(node.querySelector('g.blocklyEditableText'));
+            }
           }
         }
       }
@@ -85,7 +89,7 @@ function Sb3Theme() {
     observer.observe(this.svg, {childList: true, subtree: true});
   }
 
-  var onChange = function(block) {
+  var styleBlock = function(block) {
     self.newBlocks.push(block);
 
     let path = block.querySelector(":scope > path");
@@ -109,14 +113,20 @@ function Sb3Theme() {
 
     let inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
     for(let j = 0; j < inputs.length; j++) {
-      let input = inputs[j].parentNode;
+      styleInput(inputs[j]);
+    }
+  }
+
+  var styleInput = function(block) {
+    if(block) {
+      var input = block.parentNode;
       input.classList.add("input");
 
-      let inputVertexCount = input.getElementsByTagName("path")[0].getAttribute("d").match(/,| /g).length;
-      let inputShapeName = inputVertexCounts[inputVertexCount];
+      var inputVertexCount = input.getElementsByTagName("path")[0].getAttribute("d").match(/,| /g).length;
+      var inputShapeName = inputVertexCounts[inputVertexCount];
       if(inputShapeName) {
         if(inputShapeName == "input-string") {
-          if(inputs[j].querySelector("text tspan")) {
+          if(block.querySelector("text tspan")) {
             input.classList.add("input-dropdown");
           } else {
             input.classList.add("input-string");
