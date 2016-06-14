@@ -6,10 +6,10 @@ This is a **work-in-progress**. Everything is subject to change. Use at your own
 sb3-theme adds classes to every block so you can easily style them with CSS. It adds classes to the `<group>` tags with the following information:
 * category name
 * if it's an input, it adds the class `input`. It also adds the input type:
-  * `number`
-  * `string`
-  * `dropdown`
-  * `boolean` - this will be on the path itself, as opposed to on a `<group>`
+  * `input-number`
+  * `input-string`
+  * `input-dropdown`
+  * `input-boolean` - this will be on the path itself, as opposed to on a `<group>`
 * the following block shapes:
   * `stack`
   * `cap`
@@ -17,9 +17,9 @@ sb3-theme adds classes to every block so you can easily style them with CSS. It 
   * `number` - formerly reporter, but now there's a string-reporter shape
   * `string` - this is new. It's rectangular to match the input
   * `hat`
-  * `cblock` - a normal c-block, like `if` or `repeat until`
-  * `cend` - a terminal c-block, like `forever`
-  * `celse` - an if-else block
+  * `c-block` - a normal c-block, like `if` or `repeat until`
+  * `c-end` - a terminal c-block, like `forever`
+  * `c-else` - an if-else block
 
 It also includes many other functions that make styling easier.
 

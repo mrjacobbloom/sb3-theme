@@ -10,9 +10,9 @@ function Sb3Theme() {
       "-2": "number",
       "-4": "string",
       "77": "hat",
-      "233": "cblock",
-      "197": "cend",
-      "-3": "celse"
+      "233": "c-block",
+      "197": "c-end",
+      "-3": "c-else"
     },
     "false": {
       "120": "stack",
@@ -21,14 +21,14 @@ function Sb3Theme() {
       "26": "number",
       "42": "string",
       "81": "hat",
-      "241": "cblock",
-      "201": "cend",
-      "360": "celse"
+      "241": "c-block",
+      "201": "c-end",
+      "360": "c-else"
     }
   };
   var inputVertexCounts = {
-    "26": "number",
-    "42": "string"
+    "26": "input-number",
+    "42": "input-string"
   };
   var categoryColors = {
     "#4CBF56": "operators",
@@ -104,7 +104,7 @@ function Sb3Theme() {
     //empty bool inputs should all have the same d attribute
     let bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
     for(let j = 0; j < bools.length; j++) {
-      bools[j].classList.add("input", "boolean");
+      bools[j].classList.add("input", "input-boolean");
     }
 
     let inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
@@ -115,11 +115,11 @@ function Sb3Theme() {
       let inputVertexCount = input.getElementsByTagName("path")[0].getAttribute("d").match(/,| /g).length;
       let inputShapeName = inputVertexCounts[inputVertexCount];
       if(inputShapeName) {
-        if(inputShapeName == "string") {
+        if(inputShapeName == "input-string") {
           if(inputs[j].querySelector("text tspan")) {
-            input.classList.add("dropdown");
+            input.classList.add("input-dropdown");
           } else {
-            input.classList.add("string");
+            input.classList.add("input-string");
           }
         } else {
           input.classList.add(inputShapeName);
