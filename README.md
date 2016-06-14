@@ -34,8 +34,8 @@ sb3-theme will store itself in a global object called `sb3theme`. So, to access 
 
 * `addOnChange(function)` - add a function that will run every time the number of blocks changes. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
 * `addFilter(string)` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
-* `getBlocksWithText(string)` - returns an array of newly-added SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `wait secs`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
-* `getBlocksWithIcon(string)` - returns an array of newly-added SVG groups whose icon URL contains the substring `string`. Again, it's groups, not paths. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
+* `getBlocksWithText(string)` - returns an array of newly-added SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs should be ignored. For example, `wait secs`. Note that this returns the groups, which can contain text, paths (backgrounds, boolean inputs), and even other groups (other inputs, icons). [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
+* `getBlocksWithIcon(string)` - returns an array of newly-added SVG groups whose icon URL contains the substring `string`. Again, it returns groups, not paths. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
 
 ## Properties
 
