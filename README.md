@@ -41,7 +41,7 @@ Result:
 
 ## Properties
 
-* `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this includes inputs.
+* `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this may include inputs under certain circumstances.
 * `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it immediately.
 * `css` - a `<style>` element that I've created just for you. Do what you wish with it. Or don't. It won't mind.
 * `svg` - the `<svg>` element in which the editor is housed.
