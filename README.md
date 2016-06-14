@@ -1,9 +1,6 @@
-This is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0).
+**sb3-theme** is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block so you can easily style them with CSS. For an explanation of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
 
 This is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
-
-# How it works
-sb3-theme adds classes to every block so you can easily style them with CSS. For an explanation of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
 
 # Getting Started
 The easiest way to play with this right now is to download or clone this repo. There's a copy of the Scratch-Blocks repo inside of the `tests` folder, where you can tinker with it.
