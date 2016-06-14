@@ -1,4 +1,4 @@
-**sb3-theme** is a set of tools that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block so you can easily style them with CSS. For a list of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has a few other functions that make styling easier.
+**sb3-theme** is a javascript engine that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block and input so you can easily style them with CSS. For a list of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has [a few other functions](#methods-and-properties) that make styling easier.
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
@@ -28,15 +28,19 @@ Result:
 #### [For more examples, see the wiki.](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples)
 
 # Methods and Properties
+sb3-theme will store itself in a global object called `sb3theme`. So, to access its methods and properties, you'll write things like `sb3theme.horizontal`.
+
 ## Methods
 
-* `addOnChange(function)` - add a function that will run every time the number of blocks changes.
-* `addFilter(string)` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents.
-* `getBlocksWithText(string)` - returns an array of newly-added SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `wait secs`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups.
-* `getBlocksWithIcon(string)` - returns an array of newly-added SVG groups whose icon URL contains the substring `string`. Again, it's groups, not paths.
+* `addOnChange(function)` - add a function that will run every time the number of blocks changes. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
+* `addFilter(string)` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
+* `getBlocksWithText(string)` - returns an array of newly-added SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs/nested blocks should be ignored. For example, `wait secs`. Note that this returns the groups, which can contain text, paths (backgrounds), and even other groups. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
+* `getBlocksWithIcon(string)` - returns an array of newly-added SVG groups whose icon URL contains the substring `string`. Again, it's groups, not paths. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
 
 ## Properties
 
+None of these properties can be accessed immediately when sb3-theme is initialized. You can access them from within an onChange function.
+
 * `newBlocks` - an array of blocks that have been added in the last onChange event. Note that this may include inputs under certain circumstances.
-* `horizontal` - true if you're in horizontal mode. This only updates with onChange, you can't access it immediately.
+* `horizontal` - true if you're in horizontal mode.
 * `svg` - the `<svg>` element in which the editor is housed.
