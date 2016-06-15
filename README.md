@@ -22,6 +22,27 @@ Insert the following code into your copy of `horizontal_playground.html` or `ver
 }
 </style>
 ```
+Or as a userscript:
+```javascript
+// ==UserScript==
+// @name         make control blocks black
+// @include      /^.*/(vertical|horizontal)_playground.html?$/
+// @grant        none
+// @require      https://airhogs777.github.io/sb3-theme/sb3-theme.js
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    sb3theme.css.innerHTML = `.control .block-background {
+      fill: black;
+    }
+    .control > text {
+      font-family: serif;
+    }`;
+})();
+```
+
 Result:
 
 ![repeat block with black fill](resources/black-serif-repeat.png)
@@ -40,9 +61,8 @@ sb3-theme will store itself in a global object called `sb3theme`. So, to access 
 * `getBlocksWithIcon(string)` - returns an array of newly-added SVG groups whose icon URL contains the substring `string`. Again, it returns groups, not paths. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
 
 ## Properties
-
-None of these properties can be accessed immediately when sb3-theme is initialized. You can access them from within an onChange function.
-
+* `css` = for your convenience, a `<style>` tag to add your styles to.
+None of the following properties can be accessed immediately when sb3-theme is initialized. You can access them from within an onChange function:
 * `newBlocks` - an array of blocks that have been added in the last onChange event.
 * `newInputs` - an array of inputs that have been added in the last onChange event.
 * `horizontal` - true if you're in horizontal mode.

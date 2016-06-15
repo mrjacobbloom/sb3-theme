@@ -1,6 +1,6 @@
 'use strict';
 
-function Sb3Theme() {
+window.sb3theme = new (function() {
   var self = this;
   var vertexCounts = {
     "true": {
@@ -40,7 +40,12 @@ function Sb3Theme() {
   };
 
   this.css = document.createElement("style");
-  document.head.appendChild(this.css);
+  console.log(this.css);
+  if(document.head) {
+    document.head.appendChild(this.css);
+  } else {
+    document.getElementsByTagName('html')[0].appendChild(this.css);
+  }
 
   var onChanges = [];
   this.addOnChange = function(func) {
@@ -190,6 +195,4 @@ function Sb3Theme() {
     return result;
   }
 
-}
-
-window.sb3theme = new Sb3Theme();
+});
