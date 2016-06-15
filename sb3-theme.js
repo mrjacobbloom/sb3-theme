@@ -39,18 +39,13 @@ function Sb3Theme() {
     "#FFD500": "events"
   };
 
-  // hang out until the SVG exists, then run the init function
-  var initObserver = new MutationObserver(function(mutations) {
-    if(document.querySelector('svg.blocklySvg')) {
-      initObserver.disconnect();
-      initSVG();
-    }
-  });
-
-  if(document.querySelector('svg.blocklySvg')) {
-    initSVG();
-  } else {
-    initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
+  var onChanges = [];
+  this.addOnChange = function(func) {
+    onChanges.push(func);
+  }
+  var addFilters = [];
+  this.addFilter = function(filter) {
+    addFilters.push(filter)
   }
 
   var initSVG = function() {
@@ -89,6 +84,20 @@ function Sb3Theme() {
     });
 
     observer.observe(self.svg, {childList: true, subtree: true});
+  }
+
+  // hang out until the SVG exists, then run the init function
+  var initObserver = new MutationObserver(function(mutations) {
+    if(document.querySelector('svg.blocklySvg')) {
+      initObserver.disconnect();
+      initSVG();
+    }
+  });
+
+  if(document.querySelector('svg.blocklySvg')) {
+    initSVG();
+  } else {
+    initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
   }
 
   var styleBlock = function(block) {
@@ -144,15 +153,6 @@ function Sb3Theme() {
         }
       }
     }
-  }
-
-  var onChanges = [];
-  this.addOnChange = function(func) {
-    onChanges.push(func);
-  }
-  var addFilters = [];
-  this.addFilter = function(filter) {
-    addFilters.push(filter)
   }
 
   this.getBlocksWithText = function(query) {
