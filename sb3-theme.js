@@ -39,6 +39,9 @@ function Sb3Theme() {
     "#FFD500": "events"
   };
 
+  this.css = document.createElement("style");
+  document.head.appendChild(style);
+
   var onChanges = [];
   this.addOnChange = function(func) {
     onChanges.push(func);
