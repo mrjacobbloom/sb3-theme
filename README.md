@@ -9,6 +9,8 @@ Insert the following code into your copy of `horizontal_playground.html` or `ver
 ```
 ...and you should be good to go! Now you can style the blocks to your heart's content.
 
+### [for more on getting started, check out the wiki](https://github.com/Airhogs777/sb3-theme/wiki)
+
 # Example
 ## make control blocks black
 ```html
@@ -49,22 +51,3 @@ Result:
 ![black blocks in the horizontal editor](resources/black-flyout.png)
 
 #### [For more examples, see the wiki.](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples)
-
-# Methods and Properties
-sb3-theme will store itself in a global object called `sb3theme`. So, to access its methods and properties, you'll write things like `sb3theme.horizontal`.
-
-## Methods
-
-* `addOnChange(function)` - add a function that will run every time the number of blocks changes. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
-* `addFilter(string)` - add a filter to the `<defs>` area of the SVG. Input should be a string containing an entire `<filter>` tag and its contents. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
-* `getBlocksWithText(string)` - returns an array of newly-added SVG groups whose text contains the text `string`. All the text will be separated by spaces, and inputs should be ignored. For example, `wait secs`. Note that this returns the groups, which can contain text, paths (backgrounds, boolean inputs), and even other groups (other inputs, icons). [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#add-a-blur-filter-to-the-repeat-block)
-* `getBlocksWithIcon(string)` - returns an array of newly-added SVG groups whose icon URL contains the substring `string`. Again, it returns groups, not paths. [See example](https://github.com/Airhogs777/sb3-theme/wiki/Code-Examples#make-stop-block-big)
-
-## Properties
-* `css` = for your convenience, a `<style>` tag to add your styles to.
-
-None of the following properties can be accessed immediately when sb3-theme is initialized. You can access them from within an onChange function:
-* `newBlocks` - an array of blocks that have been added in the last onChange event.
-* `newInputs` - an array of inputs that have been added in the last onChange event.
-* `horizontal` - true if you're in horizontal mode.
-* `svg` - the `<svg>` element in which the editor is housed.
