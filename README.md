@@ -22,6 +22,29 @@ Insert the following code into your copy of `horizontal_playground.html` or `ver
 }
 </style>
 ```
+Or as a userscript:
+```javascript
+// ==UserScript==
+// @name         make control blocks black
+// @include      /^.*/(vertical|horizontal)_playground.html?$/
+// @grant        none
+// @require      https://airhogs777.github.io/sb3-theme/sb3-theme.js
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    var style = document.createElement("style");
+    style.innerHTML = `.control .block-background {
+      fill: black;
+    }
+    .control > text {
+      font-family: serif;
+    }`;
+    document.head.appendChild(style);
+})();
+```
+
 Result:
 
 ![repeat block with black fill](resources/black-serif-repeat.png)
