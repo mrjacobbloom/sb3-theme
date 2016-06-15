@@ -102,6 +102,7 @@ function Sb3Theme() {
 
   var styleBlock = function(block) {
     self.newBlocks.push(block);
+    block.classList.add("block");
 
     var path = block.querySelector(":scope > path");
     path.classList.add("block-background");
