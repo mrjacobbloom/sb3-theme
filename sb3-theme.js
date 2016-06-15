@@ -1,6 +1,6 @@
 'use strict';
 
-function Sb3Theme() {
+window.sb3theme = new (function() {
   var self = this;
   var vertexCounts = {
     "true": {
@@ -190,6 +190,4 @@ function Sb3Theme() {
     return result;
   }
 
-}
-
-window.sb3theme = new Sb3Theme();
+});
