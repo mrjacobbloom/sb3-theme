@@ -9,7 +9,7 @@ Insert the following code into your copy of `horizontal_playground.html` or `ver
 ```
 ...and you should be good to go! Now you can style the blocks to your heart's content.
 
-### [for more on getting started, check out the wiki](https://github.com/Airhogs777/sb3-theme/wiki)
+#### [for more on getting started, check out the wiki](https://github.com/Airhogs777/sb3-theme/wiki)
 
 # Example
 ## make control blocks black
