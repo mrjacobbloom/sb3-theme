@@ -40,12 +40,7 @@ window.sb3theme = new (function() {
   };
 
   this.css = document.createElement("style");
-  console.log(this.css);
-  if(document.head) {
-    document.head.appendChild(this.css);
-  } else {
-    document.getElementsByTagName('html')[0].appendChild(this.css);
-  }
+  document.head.appendChild(this.css);
 
   var onChanges = [];
   this.addOnChange = function(func) {
