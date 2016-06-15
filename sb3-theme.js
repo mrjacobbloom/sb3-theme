@@ -40,7 +40,7 @@ function Sb3Theme() {
   };
 
   this.css = document.createElement("style");
-  document.head.appendChild(style);
+  document.head.appendChild(this.css);
 
   var onChanges = [];
   this.addOnChange = function(func) {
