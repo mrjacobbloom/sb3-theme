@@ -3,13 +3,16 @@
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
 # Getting Started
-
-Download the above file called `sb3-theme.js` and link to it in your copy of `horizontal_playground.html` or `vertical_playground.html`. Eventually, I'll put this on github pages so you can just link to it.
+Insert the following code into your copy of `horizontal_playground.html` or `vertical_playground.html`:
+```html
+<script src="//airhogs777.github.io/sb3-theme/sb3-theme.js"></script>
+```
+...and you should be good to go! Now you can style the blocks to your heart's content.
 
 # Example
 ## make control blocks black
 ```html
-<script src="sb3-theme.js"></script>
+<script src="//airhogs777.github.io/sb3-theme/sb3-theme.js"></script>
 <style>
 .control .block-background {
   fill: black;
