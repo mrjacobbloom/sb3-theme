@@ -2,14 +2,7 @@
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
-# Getting Started
-Insert the following code into your copy of `horizontal_playground.html` or `vertical_playground.html`:
-```html
-<script src="//airhogs777.github.io/sb3-theme/sb3-theme.js"></script>
-```
-...and you should be good to go! Now you can style the blocks to your heart's content.
-
-#### [for more on getting started, check out the wiki](https://github.com/Airhogs777/sb3-theme/wiki)
+#### [check out the wiki for help getting started](https://github.com/Airhogs777/sb3-theme/wiki)
 
 # Example
 ## make control blocks black
