@@ -48,24 +48,33 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   }
   var addFilters = [];
   this.addFilter = function(filter) {
-    addFilters.push(filter)
+    addFilters.push(filter);
+    if(this.svg) {
+      runAddFilters();
+    }
+  }
+  var runAddFilters = function() {
+    var defs = self.svg.getElementsByTagName('defs')[0];
+    var ns = Blockly.SVG_NS;
+    while(addFilters.length) {
+      let filter = addFilters.pop();
+      var doc = new DOMParser().parseFromString(`<svg xmlns="` + ns + `">` + filter + `</svg>`, 'image/svg+xml');
+      defs.appendChild( defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
+    }
   }
 
   var initSVG = function() {
     self.svg = document.querySelector('svg.blocklySvg');
 
-    var ns = Blockly.SVG_NS;
-    var defs = self.svg.getElementsByTagName('defs')[0];
-    for(let i = 0; i < addFilters.length; i++) {
-      var doc = new DOMParser().parseFromString(`<svg xmlns="` + ns + `">` + addFilters[i] + `</svg>`, 'image/svg+xml');
-      defs.appendChild( defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
-    }
+    runAddFilters();
 
     //set up an observer for future changes to the document
     var observer = new MutationObserver(function(mutations) {
       self.newBlocks = [];
       self.newInputs = [];
       self.horizontal = Blockly.mainWorkspace.horizontalLayout;
+
+      runAddFilters();
 
       for(let m = 0; m < mutations.length; m++) {
         for(let n = 0; n < mutations[m].addedNodes.length; n++) {
