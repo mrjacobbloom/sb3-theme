@@ -2,7 +2,7 @@
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
-#### [check out the wiki for help getting started](https://github.com/Airhogs777/sb3-theme/wiki)
+#### [Check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki)
 
 # Example
 ## make control blocks black
