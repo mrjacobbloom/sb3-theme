@@ -1,6 +1,6 @@
 'use strict';
 
-window.sb3theme = new (function() {
+if(!window.sb3theme) window.sb3theme = new (function() {
   var self = this;
   var vertexCounts = {
     "true": {
