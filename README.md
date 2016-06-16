@@ -1,4 +1,4 @@
-**sb3-theme** is a javascript engine that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0). It adds classes to every block and input so you can easily style them with CSS. For a list of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has [a few other functions](#methods-and-properties) that make styling easier.
+**sb3-theme** is a javascript engine that makes it easy to create themes/skins for [Scratch-Blocks](https://github.com/LLK/scratch-blocks) (and Scratch 3.0) as userscripts. It adds classes to every block and input so you can easily style them with CSS. For a list of these classes, see [the wiki](https://github.com/Airhogs777/sb3-theme/wiki/Classes). It also has [a few other functions](#methods-and-properties) that make styling easier.
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
@@ -13,18 +13,6 @@ Insert the following code into your copy of `horizontal_playground.html` or `ver
 
 # Example
 ## make control blocks black
-```html
-<script src="//airhogs777.github.io/sb3-theme/sb3-theme.js"></script>
-<style>
-.control .block-background {
-  fill: black;
-}
-.control > text {
-  font-family: serif;
-}
-</style>
-```
-Or as a userscript:
 ```javascript
 // ==UserScript==
 // @name         make control blocks black
@@ -36,7 +24,7 @@ Or as a userscript:
 (function() {
     'use strict';
 
-    sb3theme.css.innerHTML = `.control .block-background {
+    sb3theme.css.innerHTML += `.control .block-background {
       fill: black;
     }
     .control > text {
