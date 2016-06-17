@@ -2,10 +2,17 @@
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
-#### [Check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki)
+#### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki)
 
-# Example
-## make control blocks black
+## Install a theme
+sb3-themes are shared as UserScripts. To install them, you'll need a UserScript Manager. Choose one of the options below to install one:
+* Firefox: [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)
+* Chrome: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en) (note that Chrome has built-in UserScript support but a manager will make your life much easier)
+* Safari: [Tampermonkey](https://tampermonkey.net/?browser=safari)
+
+Once you've done that, head over to our [Themes Library](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library) to pick a theme and install it.
+
+## Example: make control blocks black
 ```javascript
 // ==UserScript==
 // @name         make control blocks black
