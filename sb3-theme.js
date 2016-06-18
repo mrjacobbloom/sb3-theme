@@ -41,9 +41,12 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
   this.css = document.createElement("style");
   document.head.appendChild(this.css);
+  this.style = function(css) {
+    this.css.innerHTML += css;
+  }
 
   var onChanges = [];
-  this.addOnChange = function(func) {
+  this.onChange = function(func) {
     onChanges.push(func);
   }
   var addFilters = [];
