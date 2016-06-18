@@ -24,13 +24,13 @@ Once you've done that, head over to our [Themes Library](https://github.com/Airh
 (function() {
     'use strict';
 
-    sb3theme.css.innerHTML += `
+    sb3theme.style(`
       .control .block-background {
         fill: black;
       }
       .control > text {
         font-family: serif;
-      }`;
+      }`);
 })();
 ```
 
