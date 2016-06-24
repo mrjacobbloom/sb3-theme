@@ -32,10 +32,36 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
   var blocklyEvent = function(event, db) {
     if(event instanceof Blockly.Events.Create) {
-      let block = db[event.blockId];
-      let classes = ["block"];
-      let category = self.colors[block.colour_];
+      var block = db[event.blockId];
+      var classes = ["block"];
+      var category = self.colors[block.colour_];
       classes.push(category);
+
+      //do things wth the inputs
+      var substacks = 0;
+      for(let i = 0; i < block.inputList.length; i++) {
+        let j = block.inputList[i];
+        if(j.name.match(/SUBSTACK/)) {
+          substacks++;
+        } else if(j.connection) {
+          let check = j.connection.check_;
+          let inputPath = block.inputShapes_[j.name]
+          if(check == "Boolean") {
+            inputPath.classList.add("input", "input-background", "input-boolean");
+          } else {
+            inputPath.classList.add("input-background");
+            let inputGroup = inputPath.parentNode;
+            inputGroup.classList.add("input");
+            if(check == "String") {
+              inputGroup.classList.add("input-dropdown");
+            } else if(check == "Number") {
+              inputGroup.classList.add("input-number");
+            } else {
+              inputGroup.classList.add("input-string");
+            }
+          }
+        }
+      }
 
       //figure out shape based on connectors and things
       if(!self.horizontal && !block.previousConnection && !block.startHat_) {
@@ -48,12 +74,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           classes.push("string");
         }
       } else {
-        let substacks = 0;
-        for(let i = 0; i < block.inputList.length; i++) {
-          if(block.inputList[i].name.match(/SUBSTACK/)) {
-            substacks++;
-          }
-        }
         if(substacks) {
           classes.push("c-block");
           if(substacks > 1) {
@@ -121,46 +141,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       }
     });
     initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
-  }
-
-  var styleBlock = function(block) {
-
-    //empty bool inputs should all have the same d attribute
-    var bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
-    for(let j = 0; j < bools.length; j++) {
-      bools[j].classList.add("input", "input-boolean", "input-background");
-      self.newInputs.push(bools[j]);
-    }
-
-    var inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
-    for(let j = 0; j < inputs.length; j++) {
-      styleInput(inputs[j]);
-    }
-  }
-
-  var styleInput = function(block) {
-    if(block) {
-      var input = block.parentNode;
-      input.classList.add("input");
-      self.newInputs.push(input);
-
-      var path = input.querySelector(":scope > path");
-      path.classList.add("input-background");
-
-      var vertexCount = path.getAttribute("d").match(/,| /g).length;
-      var shapeName = inputVertexCounts[vertexCount];
-      if(shapeName) {
-        if(shapeName == "input-string") {
-          if(block.querySelector("text tspan")) {
-            input.classList.add("input-dropdown");
-          } else {
-            input.classList.add("input-string");
-          }
-        } else {
-          input.classList.add(shapeName);
-        }
-      }
-    }
   }
 
   this.getBlocksWithText = function(query) {
