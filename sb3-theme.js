@@ -33,24 +33,30 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   var blocklyEvent = function(event, db) {
     if(event instanceof Blockly.Events.Create) {
       var block = db[event.blockId];
+      block.svgPath_.classList.add("block-background");
+
       var classes = ["block"];
       var category = self.colors[block.colour_];
       classes.push(category);
 
       //do things wth the inputs
       var substacks = 0;
+      var inputTexts = block.svgGroup_.querySelectorAll(":scope > g > g.blocklyEditableText");
+      var inputBools = block.svgGroup_.querySelectorAll(":scope > path:not(.block-background)");
+      var groupCounter = 0;
+      var boolCounter = 0;
       for(let i = 0; i < block.inputList.length; i++) {
         let j = block.inputList[i];
         if(j.name.match(/SUBSTACK/)) {
           substacks++;
         } else if(j.connection) {
           let check = j.connection.check_;
-          let inputPath = block.inputShapes_[j.name]
           if(check == "Boolean") {
-            inputPath.classList.add("input", "input-background", "input-boolean");
+            inputBools[boolCounter++].classList.add("input", "input-background", "input-boolean");
           } else {
+            let inputGroup = inputTexts[groupCounter++].parentNode;
+            let inputPath = inputGroup.querySelector(":scope > path");
             inputPath.classList.add("input-background");
-            let inputGroup = inputPath.parentNode;
             inputGroup.classList.add("input");
             if(check == "String") {
               inputGroup.classList.add("input-dropdown");
@@ -91,8 +97,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       }
       block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
       console.log([block, classes.join()]);
-
-      block.svgPath_.classList.add("block-background");
 
       for(let i in onChanges) {
         onChanges[i]();
