@@ -2,42 +2,6 @@
 
 if(!window.sb3theme) window.sb3theme = new (function() {
   var self = this;
-  var vertexCounts = {
-    "true": {
-      "117": "stack",
-      "81": "cap",
-      "-1": "boolean",
-      "-2": "number",
-      "-4": "string",
-      "77": "hat",
-      "233": "c-block",
-      "197": "c-end",
-      "-3": "c-else"
-    },
-    "false": {
-      "120": "stack",
-      "80": "cap",
-      "22": "boolean",
-      "26": "number",
-      "42": "string",
-      "81": "hat",
-      "241": "c-block",
-      "201": "c-end",
-      "360": "c-else"
-    }
-  };
-  var inputVertexCounts = {
-    "26": "input-number",
-    "42": "input-string"
-  };
-  var categoryColors = {
-    "#FFFFFF": "insertion-marker",
-    "#4CBF56": "operators",
-    "#9966FF": "looks",
-    "#4C97FF": "motion",
-    "#FFAB19": "control",
-    "#FFD500": "events"
-  };
 
   this.css = document.createElement("style");
   document.head.appendChild(this.css);
@@ -66,109 +30,117 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
   }
 
-  var initSVG = function() {
-    self.svg = document.querySelector('svg.blocklySvg');
+  var blocklyEvent = function(event, db) {
+    if(event instanceof Blockly.Events.Create) {
+      var block = db[event.blockId];
+      var classes = ["block"];
+      var category = self.colors[block.colour_];
+      classes.push(category);
 
-    runAddFilters();
-
-    //set up an observer for future changes to the document
-    var observer = new MutationObserver(function(mutations) {
-      self.newBlocks = [];
-      self.newInputs = [];
-      self.horizontal = Blockly.mainWorkspace.horizontalLayout;
-
-      runAddFilters();
-
-      for(let m = 0; m < mutations.length; m++) {
-        for(let n = 0; n < mutations[m].addedNodes.length; n++) {
-          let node = mutations[m].addedNodes[n];
-          if(node.nodeType == 1) {
-            if(node.classList.contains("blocklyDraggable")) {
-              styleBlock(node);
+      //do things wth the inputs
+      var substacks = 0;
+      for(let i = 0; i < block.inputList.length; i++) {
+        let j = block.inputList[i];
+        if(j.name.match(/SUBSTACK/)) {
+          substacks++;
+        } else if(j.connection) {
+          let check = j.connection.check_;
+          let inputPath = block.inputShapes_[j.name]
+          if(check == "Boolean") {
+            inputPath.classList.add("input", "input-background", "input-boolean");
+          } else {
+            inputPath.classList.add("input-background");
+            let inputGroup = inputPath.parentNode;
+            inputGroup.classList.add("input");
+            if(check == "String") {
+              inputGroup.classList.add("input-dropdown");
+            } else if(check == "Number") {
+              inputGroup.classList.add("input-number");
             } else {
-              styleInput(node.querySelector('g.blocklyEditableText'));
+              inputGroup.classList.add("input-string");
             }
           }
         }
       }
-      if(self.newBlocks.length) {
-        for(let i in onChanges) {
-          onChanges[i]();
+
+      //figure out shape based on connectors and things
+      if(!self.horizontal && !block.previousConnection && !block.startHat_) {
+        classes.push("reporter");
+        if(block.edgeShape_ == 1) {
+          classes.push("boolean");
+        } else if(block.edgeShape_ == 3) {
+          classes.push("number");
+        } else {
+          classes.push("string");
+        }
+      } else {
+        if(substacks) {
+          classes.push("c-block");
+          if(substacks > 1) {
+            classes.push("else");
+          }
+        }
+        if((self.horizontal) ? !block.previousConnection : block.startHat_) {
+          classes.push("hat"); // because c-block/hats are very possible by just tweaking block definitions
+        } else if(!substacks) {
+          classes.push("stack"); //stack if it's not a c-block
+        }
+        if(!block.nextConnection) {
+          classes.push("end");
         }
       }
+      block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
+      console.log([block, classes.join()]);
+
+      block.svgPath_.classList.add("block-background");
+
+      for(let i in onChanges) {
+        onChanges[i]();
+      }
+    }
+  }
+
+  var initSVG = function() {
+    self.svg = document.querySelector('svg.blocklySvg');
+    self.horizontal = !!Blockly.BlockSvg.IMAGE_FIELD_WIDTH;
+    if(self.horizontal) {
+      self.svg.classList.add("horizontal");
+    } else {
+      self.svg.classList.add("vertical");
+    }
+
+    self.colors = {}; // buil an object with the official color names for easy category detection
+    for(let i in Blockly.Colours) {
+      if(Blockly.Colours.hasOwnProperty(i) && typeof Blockly.Colours[i] == "object") {
+        self.colors[Blockly.Colours[i]["primary"]] = i;
+      }
+    }
+
+    var flyoutWorkspace = (workspace.flyout_) ? workspace.flyout_.workspace_ :
+      workspace.toolbox_.flyout_.workspace_;
+
+    flyoutWorkspace.addChangeListener(function(e) {
+      blocklyEvent(e, flyoutWorkspace.blockDB_)
+    });
+    Blockly.mainWorkspace.addChangeListener(function(e) {
+      blocklyEvent(e, Blockly.mainWorkspace.blockDB_)
     });
 
-    observer.observe(self.svg, {childList: true, subtree: true});
+
+    runAddFilters();
   }
 
   // hang out until the SVG exists, then run the init function
-  var initObserver = new MutationObserver(function(mutations) {
-    if(document.querySelector('svg.blocklySvg')) {
-      initObserver.disconnect();
-      initSVG();
-    }
-  });
-
   if(document.querySelector('svg.blocklySvg')) {
     initSVG();
   } else {
-    initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
-  }
-
-  var styleBlock = function(block) {
-    self.newBlocks.push(block);
-    block.classList.add("block");
-
-    var path = block.querySelector(":scope > path");
-    path.classList.add("block-background");
-
-    var vertexCount = path.getAttribute("d").match(/,| /g).length;
-    var shapeName = vertexCounts[self.horizontal.toString()][vertexCount];
-    if(shapeName) {
-      block.classList.add(shapeName);
-    }
-
-    var colorName = categoryColors[path.getAttribute("fill")];
-    if(colorName) {
-      block.classList.add(colorName);
-    }
-
-    //empty bool inputs should all have the same d attribute
-    var bools = block.querySelectorAll(':scope > path[d="M 16,0  h 16 l 16,16 l -16,16 h -16 l -16,-16 l 16,-16 z"]');
-    for(let j = 0; j < bools.length; j++) {
-      bools[j].classList.add("input", "input-boolean", "input-background");
-      self.newInputs.push(bools[j]);
-    }
-
-    var inputs = block.querySelectorAll(':scope > g > g.blocklyEditableText');
-    for(let j = 0; j < inputs.length; j++) {
-      styleInput(inputs[j]);
-    }
-  }
-
-  var styleInput = function(block) {
-    if(block) {
-      var input = block.parentNode;
-      input.classList.add("input");
-      self.newInputs.push(input);
-
-      var path = input.querySelector(":scope > path");
-      path.classList.add("input-background");
-
-      var vertexCount = path.getAttribute("d").match(/,| /g).length;
-      var shapeName = inputVertexCounts[vertexCount];
-      if(shapeName) {
-        if(shapeName == "input-string") {
-          if(block.querySelector("text tspan")) {
-            input.classList.add("input-dropdown");
-          } else {
-            input.classList.add("input-string");
-          }
-        } else {
-          input.classList.add(shapeName);
-        }
+    var initObserver = new MutationObserver(function(mutations) {
+      if(document.querySelector('svg.blocklySvg')) {
+        initObserver.disconnect();
+        initSVG();
       }
-    }
+    });
+    initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
   }
 
   this.getBlocksWithText = function(query) {
