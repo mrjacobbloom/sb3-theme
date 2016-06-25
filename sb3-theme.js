@@ -75,7 +75,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var observer = new MutationObserver(function(mutations) {
       self.newBlocks = [];
       self.newInputs = [];
-      self.horizontal = Blockly.mainWorkspace.horizontalLayout;
+      self.horizontal = !!Blockly.BlockSvg.IMAGE_FIELD_WIDTH;
 
       runAddFilters();
 
