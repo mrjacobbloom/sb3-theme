@@ -74,6 +74,11 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       }
     }
 
+    //icon class
+    if(block.renderingMetrics_ && block.renderingMetrics_.imageField) {
+      block.renderingMetrics_.imageField.imageElement_.classList.add("icon");
+    }
+
     if(block.nextConnection && block.nextConnection.targetConnection) { //if there's a block conected to me, push it to the queue
       queue.push([block.nextConnection.targetConnection.sourceBlock_, db])
     }
