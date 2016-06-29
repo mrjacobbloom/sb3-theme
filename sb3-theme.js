@@ -145,7 +145,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
     //hijack replacement-rings
     var oldHighlightForReplacement = Blockly.BlockSvg.prototype.highlightForReplacement;
-    Blockly.BlockSvg.prototype.highlightForReplacement = function() {
+    Blockly.BlockSvg.prototype.highlightForReplacement = function(add) {
       if(add) {
         this.svgGroup_.classList.add("replaceable");
       } else {
