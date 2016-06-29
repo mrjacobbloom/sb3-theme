@@ -30,6 +30,18 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
   }
 
+  var hijackReplacementHighlighting = function(block) {
+    var old = block.highlightForReplacement;
+    block.highlightForReplacement = function(add) {
+      if(add) {
+        block.svgPath_.classList.add("replaceable");
+      } else {
+        block.svgPath_.classList.remove("replaceable");
+      }
+      old.apply(block, [add]);
+    }
+  }
+
   var styleBlock = function(queueitem) {
     var block = queueitem[0];
     var db = queueitem[1];
@@ -57,6 +69,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       } else if(j.connection) {
         let inputBlock = j.connection.targetConnection.sourceBlock_;
         if(inputBlock.isShadow_) {
+          hijackReplacementHighlighting(inputBlock);
           let inputGroup = inputBlock.svgGroup_;
           inputBlock.svgPath_.classList.add("input-background");
           inputGroup.classList.add("input");
@@ -80,6 +93,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
     //figure out shape based on connectors and things
     if(!self.horizontal && !block.previousConnection && !block.startHat_) {
+      hijackReplacementHighlighting(block);
       classes.push("reporter");
       if(block.edgeShape_ == 1) {
         classes.push("boolean");
