@@ -113,7 +113,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     console.log([block, classes.join()]);
 
     for(let i in onChanges) {
-      onChanges[i](block.svgGroup_, block.type);
+      onChanges[i](block.type, block.svgGroup_, classes, block);
     }
   }
 
