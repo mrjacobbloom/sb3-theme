@@ -30,74 +30,91 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
   }
 
+  var styleBlock = function(queueitem) {
+    var block = queueitem[0];
+    var db = queueitem[1];
+    block.svgPath_.classList.add("block-background");
+
+    var classes = ["block"];
+    var category = self.colors[block.colour_];
+    classes.push(category);
+
+    //do things wth the inputs
+    var substacks = 0;
+    var inputBools = block.svgGroup_.querySelectorAll(":scope > path:not(.block-background)");
+    for(let i = 0; i < inputBools.length; i++) {
+      inputBools[i].classList.add("input", "input-background", "input-boolean");
+    }
+    for(let i = 0; i < block.inputList.length; i++) {
+      let j = block.inputList[i];
+      if(j.name.match(/SUBSTACK/)) {
+        substacks++;
+        if(j.connection && j.connection.targetConnection) { //if there's a block in the substack, push it to the queue
+          queue.push([j.connection.targetConnection.sourceBlock_, db])
+        }
+      } else if(j.connection && j.connection.check_ == "Boolean") {
+        //nothing, bools should already be taken care of
+      } else if(j.connection) {
+        let inputBlock = j.connection.targetConnection.sourceBlock_;
+        if(inputBlock.isShadow_) {
+          let inputGroup = inputBlock.svgGroup_;
+          inputBlock.svgPath_.classList.add("input-background");
+          inputGroup.classList.add("input");
+          if(inputBlock.type.match(/number/)) {
+            inputGroup.classList.add("input-number");
+          } else if(inputBlock.type.match(/text/)) {
+            inputGroup.classList.add("input-string");
+          } else if(inputBlock.type.match(/menu/)) {
+            inputGroup.classList.add("input-dropdown");
+          }
+        } else {
+          //if there's a non-shadow-block in the input, push it to the queue
+          queue.push([inputBlock, db])
+        }
+      }
+    }
+
+    if(block.nextConnection && block.nextConnection.targetConnection) { //if there's a block conected to me, push it to the queue
+      queue.push([block.nextConnection.targetConnection.sourceBlock_, db])
+    }
+
+    //figure out shape based on connectors and things
+    if(!self.horizontal && !block.previousConnection && !block.startHat_) {
+      classes.push("reporter");
+      if(block.edgeShape_ == 1) {
+        classes.push("boolean");
+      } else if(block.edgeShape_ == 3) {
+        classes.push("number");
+      } else {
+        classes.push("string");
+      }
+    } else {
+      if(substacks) {
+        classes.push("c-block");
+        if(substacks > 1) {
+          classes.push("else");
+        }
+      }
+      if((self.horizontal) ? !block.previousConnection : block.startHat_) {
+        classes.push("hat"); // because c-block/hats are very possible by just tweaking block definitions
+      } else if(!substacks) {
+        classes.push("stack"); //stack if it's not a c-block
+      }
+      if(!block.nextConnection) {
+        classes.push("end");
+      }
+    }
+    block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
+    console.log([block, classes.join()]);
+  }
+
+  var queue = [];
   var blocklyEvent = function(event, db) {
     if(event instanceof Blockly.Events.Create) {
-      var block = db[event.blockId];
-      block.svgPath_.classList.add("block-background");
-
-      var classes = ["block"];
-      var category = self.colors[block.colour_];
-      classes.push(category);
-
-      //do things wth the inputs
-      var substacks = 0;
-      var inputTexts = block.svgGroup_.querySelectorAll(":scope > g > g.blocklyEditableText");
-      var inputBools = block.svgGroup_.querySelectorAll(":scope > path:not(.block-background)");
-      var groupCounter = 0;
-      var boolCounter = 0;
-      for(let i = 0; i < block.inputList.length; i++) {
-        let j = block.inputList[i];
-        if(j.name.match(/SUBSTACK/)) {
-          substacks++;
-        } else if(j.connection) {
-          let check = j.connection.check_;
-          if(check == "Boolean") {
-            inputBools[boolCounter++].classList.add("input", "input-background", "input-boolean");
-          } else {
-            let inputGroup = inputTexts[groupCounter++].parentNode;
-            let inputPath = inputGroup.querySelector(":scope > path");
-            inputPath.classList.add("input-background");
-            inputGroup.classList.add("input");
-            if(check == "String") {
-              inputGroup.classList.add("input-dropdown");
-            } else if(check == "Number") {
-              inputGroup.classList.add("input-number");
-            } else {
-              inputGroup.classList.add("input-string");
-            }
-          }
-        }
+      queue = [[db[event.blockId], db]];
+      while(queue.length) {
+        styleBlock(queue.pop());
       }
-
-      //figure out shape based on connectors and things
-      if(!self.horizontal && !block.previousConnection && !block.startHat_) {
-        classes.push("reporter");
-        if(block.edgeShape_ == 1) {
-          classes.push("boolean");
-        } else if(block.edgeShape_ == 3) {
-          classes.push("number");
-        } else {
-          classes.push("string");
-        }
-      } else {
-        if(substacks) {
-          classes.push("c-block");
-          if(substacks > 1) {
-            classes.push("else");
-          }
-        }
-        if((self.horizontal) ? !block.previousConnection : block.startHat_) {
-          classes.push("hat"); // because c-block/hats are very possible by just tweaking block definitions
-        } else if(!substacks) {
-          classes.push("stack"); //stack if it's not a c-block
-        }
-        if(!block.nextConnection) {
-          classes.push("end");
-        }
-      }
-      block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
-      console.log([block, classes.join()]);
-
       for(let i in onChanges) {
         onChanges[i]();
       }
