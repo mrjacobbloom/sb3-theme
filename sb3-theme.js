@@ -106,6 +106,10 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
     block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
     console.log([block, classes.join()]);
+
+    for(let i in onChanges) {
+      onChanges[i](block.type);
+    }
   }
 
   var queue = [];
@@ -114,9 +118,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       queue = [[db[event.blockId], db]];
       while(queue.length) {
         styleBlock(queue.pop());
-      }
-      for(let i in onChanges) {
-        onChanges[i]();
       }
     }
   }
@@ -181,36 +182,4 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     });
     initObserver.observe(document.getElementsByTagName('html')[0], {childList: true, subtree: true}); // <body> doesn't always exist at runtime
   }
-
-  this.getBlocksWithText = function(query) {
-    var result = [];
-    for(let i = 0; i < this.newBlocks.length; i++) {
-      let text = "";
-      let children = this.newBlocks[i].children;
-      for(let j = 0; j < children.length; j++) {
-        if(children[j].tagName.match(/text/i)) {
-          text += " " + children[j].textContent;
-        }
-      }
-      text = text.replace(/(&nbsp;|  +)/g, " ")
-      if(text.match(query)) {
-        result.push( this.newBlocks[i] );
-      }
-    }
-    return result;
-  }
-
-  this.getBlocksWithIcon = function(query) {
-    var result = [];
-    for(let i = 0; i < this.newBlocks.length; i++) {
-      let images = this.newBlocks[i].querySelectorAll(':scope > g > image');
-      for(let j = 0; j < images.length; j++) {
-        if(images[j].getAttribute('xlink:href').match(query)) {
-          result.push( this.newBlocks[i] );
-        }
-      }
-    }
-    return result;
-  }
-
 });
