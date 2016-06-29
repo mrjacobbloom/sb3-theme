@@ -34,9 +34,9 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var old = block.highlightForReplacement;
     block.highlightForReplacement = function(add) {
       if(add) {
-        block.svgPath_.classList.add("replaceable");
+        block.svgGroup_.classList.add("replaceable");
       } else {
-        block.svgPath_.classList.remove("replaceable");
+        block.svgGroup_.classList.remove("replaceable");
       }
       old.apply(block, [add]);
     }
