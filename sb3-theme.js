@@ -69,7 +69,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
             inputGroup.classList.add("input-number");
           } else if(inputBlock.type.match(/text/)) {
             inputGroup.classList.add("input-string");
-          } else if(inputBlock.type.match(/menu/)) {
+          } else if(inputBlock.type.match(/menu|dropdown/)) {
             inputGroup.classList.add("input-dropdown");
           }
         } else {
@@ -163,6 +163,15 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var oldDropdownShowEditor = Blockly.FieldDropdown.prototype.showEditor_;
     Blockly.FieldDropdown.prototype.showEditor_ = function() {
       oldDropdownShowEditor.apply(this, arguments);
+      var menu = document.querySelector(".blocklyDropDownDiv");
+      menu.classList.add("dropdown-menu", self.colors[menu.style.backgroundColor]);
+    }
+
+    //hijack icon menus
+    var oldIconMenuShowEditor = Blockly.FieldIconMenu.prototype.showEditor_;
+    Blockly.FieldIconMenu.prototype.showEditor_ = function() {
+      oldIconMenuShowEditor.apply(this, arguments);
+      console.log("a thing happened")
       var menu = document.querySelector(".blocklyDropDownDiv");
       menu.classList.add("dropdown-menu", self.colors[menu.style.backgroundColor]);
     }
