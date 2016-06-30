@@ -4,8 +4,6 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 
 #### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
 
-| <h2>Featured Theme</h2>|
-| --- |
-
+## Featured Theme
 | ![PlainText theme](resources/featured.png) | <h1>PlainText</h1><br/>[ ![Install this theme](resources/button.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?]](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme) |
 | --- | --- |
