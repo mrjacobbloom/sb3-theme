@@ -5,5 +5,5 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 #### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
 
 ## Featured Theme
-| ![PlainText theme](resources/featured.png) | <span style="font-size: 60pt;">PlainText</span><br/>[ ![Install this theme](resources/button.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?]](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme) |
+| ![PlainText theme](resources/featured.png) | <h2>PlainText</h2><br/>[ ![Install this theme](resources/button.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?]](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme) |
 | --- | --- |
