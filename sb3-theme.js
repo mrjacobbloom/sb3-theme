@@ -8,6 +8,10 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   this.style = function(css) {
     this.css.innerHTML += css;
   }
+  this.style(`.blocklyDropDownArrow {
+        background: inherit !important;
+        border-color: inherit !important;
+      }`)
 
   var onChanges = [];
   this.onChange = function(func) {
@@ -38,6 +42,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var classes = ["block"];
     var category = self.colors[block.colour_];
     classes.push(category);
+    self.colors[getComputedStyle(block.svgPath_).fill] = category;
 
     //do things wth the inputs
     var substacks = 0;
@@ -152,6 +157,14 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         this.svgGroup_.classList.remove("replaceable");
       }
       oldHighlightForReplacement.apply(this, arguments);
+    }
+
+    //hijack dropown menus
+    var oldDropdownShowEditor = Blockly.FieldDropdown.prototype.showEditor_;
+    Blockly.FieldDropdown.prototype.showEditor_ = function() {
+      oldDropdownShowEditor.apply(this, arguments);
+      var menu = document.querySelector(".blocklyDropDownDiv");
+      menu.classList.add("dropdown", self.colors[menu.style.backgroundColor]);
     }
 
     //hijack insertion-markers
