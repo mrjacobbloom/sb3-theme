@@ -164,7 +164,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     Blockly.FieldDropdown.prototype.showEditor_ = function() {
       oldDropdownShowEditor.apply(this, arguments);
       var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown", self.colors[menu.style.backgroundColor]);
+      menu.classList.add("dropdown-menu", self.colors[menu.style.backgroundColor]);
     }
 
     //hijack insertion-markers
