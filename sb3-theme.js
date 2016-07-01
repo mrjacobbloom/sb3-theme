@@ -176,7 +176,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var oldIconMenuShowEditor = Blockly.FieldIconMenu.prototype.showEditor_;
     Blockly.FieldIconMenu.prototype.showEditor_ = function() {
       oldIconMenuShowEditor.apply(this, arguments);
-      console.log("a thing happened")
       var menu = document.querySelector(".blocklyDropDownDiv");
       menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
       if(self.options.menuColors) {
