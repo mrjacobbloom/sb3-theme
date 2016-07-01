@@ -178,7 +178,11 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       oldIconMenuShowEditor.apply(this, arguments);
       console.log("a thing happened")
       var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown-menu", self.colors[menu.style.backgroundColor]);
+      menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
+      if(self.options.menuColors) {
+        menu.style.backgroundColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).fill;
+        menu.style.borderColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).stroke;
+      }
     }
 
     //hijack insertion-markers
