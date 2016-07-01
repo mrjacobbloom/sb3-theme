@@ -3,6 +3,8 @@
 if(!window.sb3theme) window.sb3theme = new (function() {
   var self = this;
 
+  this.options = {menuColors: true};
+
   this.css = document.createElement("style");
   document.head.appendChild(this.css);
   this.style = function(css) {
@@ -42,7 +44,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var classes = ["block"];
     var category = self.colors[block.colour_];
     classes.push(category);
-    self.colors[getComputedStyle(block.svgPath_).fill] = category;
 
     //do things wth the inputs
     var substacks = 0;
@@ -141,7 +142,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       self.svg.classList.add("vertical");
     }
 
-    self.colors = {}; // buil an object with the official color names for easy category detection
+    self.colors = {}; // build an object with the official color names for easy category detection
     for(let i in Blockly.Colours) {
       if(Blockly.Colours.hasOwnProperty(i) && typeof Blockly.Colours[i] == "object") {
         self.colors[Blockly.Colours[i]["primary"]] = i;
@@ -164,7 +165,11 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     Blockly.FieldDropdown.prototype.showEditor_ = function() {
       oldDropdownShowEditor.apply(this, arguments);
       var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown-menu", self.colors[menu.style.backgroundColor]);
+      menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
+      if(self.options.menuColors) {
+        menu.style.backgroundColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).fill;
+        menu.style.borderColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).stroke;
+      }
     }
 
     //hijack icon menus
