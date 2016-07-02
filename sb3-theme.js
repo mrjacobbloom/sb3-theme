@@ -142,25 +142,26 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     //hijack dropown menus
     var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
     Blockly.DropDownDiv.showPositionedByBlock = function(owner, block) {
-      oldDropdownShow.apply(this, arguments);
+      var results = oldDropdownShow.apply(this, arguments);
       this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
       if(self.options.menuColors) {
         this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
         this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
       }
+      return results;
     };
 
     //hijack insertion-markers
     var oldSetInsertionMarker = Blockly.BlockSvg.prototype.setInsertionMarker;
     Blockly.BlockSvg.prototype.setInsertionMarker = function() {
       this.svgGroup_.classList.add("insertion-marker");
-      oldSetInsertionMarker.apply(this, arguments);
+      return oldSetInsertionMarker.apply(this, arguments);
     };
 
     //hijack block init
     var oldInit = Blockly.BlockSvg.prototype.initSvg;
     Blockly.BlockSvg.prototype.initSvg = function() {
-      oldInit.apply(this, arguments);
+      var results = oldInit.apply(this, arguments);
       if(!this.isShadow_) {
         styleBlock(this);
         console.log([this, this.classes.join()]);
@@ -169,12 +170,13 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           onNews[i](this.type, this.svgGroup_, this.classes, this);
         }
       }
+      return results;
     };
 
     //hijack block rendering to capture shape changes
     var oldRender = Blockly.BlockSvg.prototype.render;
     Blockly.BlockSvg.prototype.render = function() {
-      oldRender.apply(this, arguments);
+      var results = oldRender.apply(this, arguments);
       if(!this.isShadow_) {
         var newShape = this.svgPath_.getAttribute("d")
         if(newShape != this.oldShape) {
@@ -185,6 +187,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           }
         }
       }
+      return results;
     };
 
     runAddFilters();
