@@ -82,7 +82,8 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
 
     //figure out shape based on connectors and things
-    if(!self.horizontal && !block.previousConnection && !block.startHat_) {
+    var isHat = !block.outputConnection && !block.previousConnection;
+    if(!self.horizontal && !block.previousConnection && !isHat) {
       classes.push("reporter");
       if(block.edgeShape_ == 1) {
         classes.push("boolean");
@@ -98,7 +99,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           classes.push("else");
         }
       }
-      if((self.horizontal) ? !block.previousConnection : block.startHat_) {
+      if((self.horizontal) ? !block.previousConnection : isHat) {
         classes.push("hat"); // because c-block/hats are very possible by just tweaking block definitions
       } else if(!substacks) {
         classes.push("stack"); //stack if it's not a c-block
