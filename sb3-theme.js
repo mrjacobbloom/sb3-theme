@@ -166,7 +166,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         styleBlock(this);
         console.log([this, this.classes.join()]);
 
-        for(let i in onNews) {
+        for(let i = 0; i < onNews.length; i++) {
           onNews[i](this.type, this.svgGroup_, this.classes, this);
         }
       }
@@ -182,7 +182,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         if(newShape != this.oldShape) {
           this.oldShape = newShape;
 
-          for(let i in onChanges) {
+          for(let i = 0; i < onChanges.length; i++) {
             onChanges[i](this.type, this.svgGroup_, this.classes, this);
           }
         }
