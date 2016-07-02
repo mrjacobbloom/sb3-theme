@@ -21,7 +21,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   };
   var onChanges = [];
   this.onChange = function(func) {
-    onChange.push(func);
+    onChanges.push(func);
   };
   var addFilters = [];
   this.addFilter = function(filter) {
@@ -59,7 +59,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         substacks++;
       } else if(j.connection && j.connection.check_ == "Boolean") {
         //nothing, bools should already be taken care of
-      } else if(j.connection) {
+      } else if(j.connection && j.connection.targetConnection) {
         let inputBlock = j.connection.targetConnection.sourceBlock_;
         if(inputBlock.isShadow_) {
           let inputGroup = inputBlock.svgGroup_;
