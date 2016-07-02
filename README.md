@@ -5,6 +5,16 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 #### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
 
 ## Featured Theme
-| <h1>PlainText</h1><br/>[ ![Install this theme](resources/download.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme)]<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ![PlainText theme](resources/featured.png) |
-| --- | --- |
-| [ ![explore more themes](resources/more-themes.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library) |
+<table>
+  <tr>
+    <th>
+    <h1>PlainText</h1><br/>[ ![Install this theme](resources/download.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme)]
+    </th>
+    <th>![PlainText theme](resources/featured.png)</th>
+  </tr>
+  <tr>
+    <th colspan="2">
+    [ ![explore more themes](resources/more-themes.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library)
+    </th>
+  </tr>
+</table>
