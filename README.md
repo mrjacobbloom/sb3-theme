@@ -7,14 +7,18 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 ## Featured Theme
 <table>
   <tr>
-    <th>
-    <h1>PlainText</h1><br/>[ ![Install this theme](resources/download.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme)]
-    </th>
-    <th>![PlainText theme](resources/featured.png)</th>
+    <td style="text-align: center; border: none; background: none;">
+    <h1>PlainText</h1>
+    <br/>
+    <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only"><img src="resources/download.png"/></a>
+    <br/>
+    [<a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme">need help installing?</a>]
+    </td>
+    <td style="text-align: center; border: none; background: none;"><img src="resources/featured.png"/></td>
   </tr>
   <tr>
-    <th colspan="2">
-    [ ![explore more themes](resources/more-themes.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library)
-    </th>
+    <td colspan="2" style="text-align: center; border: none; background: none;">
+    <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library"><img src="resources/more-themes.png"/></a>
+    </td>
   </tr>
 </table>
