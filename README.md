@@ -7,18 +7,18 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 ## Featured Theme
 <table>
   <tr>
-    <td style="text-align: center; border: none; background: none;">
+    <th>
     <h1>PlainText</h1>
     <br/>
     <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only"><img src="resources/download.png"/></a>
     <br/>
     [<a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme">need help installing?</a>]
-    </td>
-    <td style="text-align: center; border: none; background: none;"><img src="resources/featured.png"/></td>
+    </th>
+    <th><img src="resources/featured.png"/></th>
   </tr>
   <tr>
-    <td colspan="2" style="text-align: center; border: none; background: none;">
+    <th colspan="2" border="none">
     <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library"><img src="resources/more-themes.png"/></a>
-    </td>
+    </th>
   </tr>
 </table>
