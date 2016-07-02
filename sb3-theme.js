@@ -15,9 +15,9 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         border-color: inherit !important;
       }`);
 
-  var onChanges = [];
-  this.onChange = function(func) {
-    onChanges.push(func);
+  var onNews = [];
+  this.onNew = function(func) {
+    onNews.push(func);
   };
   var addFilters = [];
   this.addFilter = function(filter) {
@@ -118,8 +118,8 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
     console.log([block, classes.join()]);
 
-    for(let i in onChanges) {
-      onChanges[i](block.type, block.svgGroup_, classes, block);
+    for(let i in onNews) {
+      onNews[i](block.type, block.svgGroup_, classes, block);
     }
   };
 
