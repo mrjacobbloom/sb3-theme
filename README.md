@@ -2,8 +2,23 @@
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
-#### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
+#### [Developers: check out the wiki to get started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
 
-## Featured Theme
-| <h1>PlainText</h1><br/>[ ![Install this theme](resources/button.png) ](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only)<br/>[[need help installing?](https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme)]<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |  ![PlainText theme](resources/featured.png) |
-| --- | --- |
+<h2 align="center">Featured Theme</h2>
+<table width="100%">
+  <tr>
+    <th width="60%">
+    <h1>PlainText</h1>
+    <br/>
+    <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only"><img src="resources/download.png"/></a>
+    <br/>
+    [<a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme">need help installing?</a>]
+    </th>
+    <th><img src="resources/featured.png"/></th>
+  </tr>
+  <tr>
+    <td colspan="2" align="center">
+    <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library"><img src="resources/more-themes.png"/></a>
+    </td>
+  </tr>
+</table>

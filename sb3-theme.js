@@ -1,6 +1,6 @@
-'use strict';
-
 if(!window.sb3theme) window.sb3theme = new (function() {
+  'use strict';
+
   var self = this;
 
   this.options = {menuColors: true};
@@ -9,23 +9,23 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   document.head.appendChild(this.css);
   this.style = function(css) {
     this.css.innerHTML += css;
-  }
+  };
   this.style(`.blocklyDropDownArrow {
         background: inherit !important;
         border-color: inherit !important;
-      }`)
+      }`);
 
   var onChanges = [];
   this.onChange = function(func) {
     onChanges.push(func);
-  }
+  };
   var addFilters = [];
   this.addFilter = function(filter) {
     addFilters.push(filter);
     if(this.svg) {
       runAddFilters();
     }
-  }
+  };
   var runAddFilters = function() {
     var defs = self.svg.getElementsByTagName('defs')[0];
     var ns = Blockly.SVG_NS;
@@ -34,7 +34,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       var doc = new DOMParser().parseFromString(`<svg xmlns="` + ns + `">` + filter + `</svg>`, 'image/svg+xml');
       defs.appendChild( defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
     }
-  }
+  };
 
   var styleBlock = function(queueitem) {
     var block = queueitem[0];
@@ -56,7 +56,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       if(j.name.match(/SUBSTACK/)) {
         substacks++;
         if(j.connection && j.connection.targetConnection) { //if there's a block in the substack, push it to the queue
-          queue.push([j.connection.targetConnection.sourceBlock_, db])
+          queue.push([j.connection.targetConnection.sourceBlock_, db]);
         }
       } else if(j.connection && j.connection.check_ == "Boolean") {
         //nothing, bools should already be taken care of
@@ -75,7 +75,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           }
         } else {
           //if there's a non-shadow-block in the input, push it to the queue
-          queue.push([inputBlock, db])
+          queue.push([inputBlock, db]);
         }
       }
     }
@@ -86,7 +86,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
 
     if(block.nextConnection && block.nextConnection.targetConnection) { //if there's a block conected to me, push it to the queue
-      queue.push([block.nextConnection.targetConnection.sourceBlock_, db])
+      queue.push([block.nextConnection.targetConnection.sourceBlock_, db]);
     }
 
     //figure out shape based on connectors and things
@@ -121,7 +121,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     for(let i in onChanges) {
       onChanges[i](block.type, block.svgGroup_, classes, block);
     }
-  }
+  };
 
   var queue = [];
   var blocklyEvent = function(event, db) {
@@ -131,7 +131,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         styleBlock(queue.pop());
       }
     }
-  }
+  };
 
   var initSVG = function() {
     self.svg = document.querySelector('svg.blocklySvg');
@@ -145,7 +145,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     self.colors = {}; // build an object with the official color names for easy category detection
     for(let i in Blockly.Colours) {
       if(Blockly.Colours.hasOwnProperty(i) && typeof Blockly.Colours[i] == "object") {
-        self.colors[Blockly.Colours[i]["primary"]] = i;
+        self.colors[Blockly.Colours[i].primary] = i;
       }
     }
 
@@ -158,53 +158,39 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         this.svgGroup_.classList.remove("replaceable");
       }
       oldHighlightForReplacement.apply(this, arguments);
-    }
+    };
 
     //hijack dropown menus
-    var oldDropdownShowEditor = Blockly.FieldDropdown.prototype.showEditor_;
-    Blockly.FieldDropdown.prototype.showEditor_ = function() {
-      oldDropdownShowEditor.apply(this, arguments);
-      var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
+    var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
+    Blockly.DropDownDiv.showPositionedByBlock = function(owner, block) {
+      oldDropdownShow.apply(this, arguments);
+      this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
       if(self.options.menuColors) {
-        menu.style.backgroundColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).fill;
-        menu.style.borderColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).stroke;
+        this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
+        this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
       }
-    }
-
-    //hijack icon menus
-    var oldIconMenuShowEditor = Blockly.FieldIconMenu.prototype.showEditor_;
-    Blockly.FieldIconMenu.prototype.showEditor_ = function() {
-      oldIconMenuShowEditor.apply(this, arguments);
-      console.log("a thing happened")
-      var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
-      if(self.options.menuColors) {
-        menu.style.backgroundColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).fill;
-        menu.style.borderColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).stroke;
-      }
-    }
+    };
 
     //hijack insertion-markers
     var oldSetInsertionMarker = Blockly.BlockSvg.prototype.setInsertionMarker;
     Blockly.BlockSvg.prototype.setInsertionMarker = function() {
       this.svgGroup_.classList.add("insertion-marker");
       oldSetInsertionMarker.apply(this, arguments);
-    }
+    };
 
     var flyoutWorkspace = (workspace.flyout_) ? workspace.flyout_.workspace_ :
       workspace.toolbox_.flyout_.workspace_;
 
     flyoutWorkspace.addChangeListener(function(e) {
-      blocklyEvent(e, flyoutWorkspace.blockDB_)
+      blocklyEvent(e, flyoutWorkspace.blockDB_);
     });
     Blockly.mainWorkspace.addChangeListener(function(e) {
-      blocklyEvent(e, Blockly.mainWorkspace.blockDB_)
+      blocklyEvent(e, Blockly.mainWorkspace.blockDB_);
     });
 
 
     runAddFilters();
-  }
+  };
 
   // hang out until the SVG exists, then run the init function
   if(document.querySelector('svg.blocklySvg')) {
