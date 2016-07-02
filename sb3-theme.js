@@ -141,6 +141,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     } else {
       self.svg.classList.add("vertical");
     }
+    self.NS = self.svg.namespaceURI;
 
     self.colors = {}; // build an object with the official color names for easy category detection
     for(let i in Blockly.Colours) {
