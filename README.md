@@ -5,7 +5,7 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 #### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
 
 ## Featured Theme
-<table>
+<table width="100%">
   <tr>
     <th>
     <h1>PlainText</h1>
@@ -17,7 +17,7 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
     <th><img src="resources/featured.png"/></th>
   </tr>
   <tr>
-    <th colspan="2" bordercolor="transparent" background="transparent">
+    <th colspan="2" align="center">
     <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library"><img src="resources/more-themes.png"/></a>
     </th>
   </tr>
