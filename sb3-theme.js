@@ -161,26 +161,13 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     };
 
     //hijack dropown menus
-    var oldDropdownShowEditor = Blockly.FieldDropdown.prototype.showEditor_;
-    Blockly.FieldDropdown.prototype.showEditor_ = function() {
-      oldDropdownShowEditor.apply(this, arguments);
-      var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
+    var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
+    Blockly.DropDownDiv.showPositionedByBlock = function(owner, block) {
+      oldDropdownShow.apply(this, arguments);
+      this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
       if(self.options.menuColors) {
-        menu.style.backgroundColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).fill;
-        menu.style.borderColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).stroke;
-      }
-    };
-
-    //hijack icon menus
-    var oldIconMenuShowEditor = Blockly.FieldIconMenu.prototype.showEditor_;
-    Blockly.FieldIconMenu.prototype.showEditor_ = function() {
-      oldIconMenuShowEditor.apply(this, arguments);
-      var menu = document.querySelector(".blocklyDropDownDiv");
-      menu.classList.add("dropdown-menu", self.colors[this.sourceBlock_.parentBlock_.colour_]);
-      if(self.options.menuColors) {
-        menu.style.backgroundColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).fill;
-        menu.style.borderColor = getComputedStyle(this.sourceBlock_.parentBlock_.svgPath_).stroke;
+        this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
+        this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
       }
     };
 
