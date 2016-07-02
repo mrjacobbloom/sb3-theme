@@ -2,9 +2,9 @@
 
 Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject to change. Use at your own risk. :package:
 
-#### [Developers: check out the wiki for help getting started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
+#### [Developers: check out the wiki to get started.](https://github.com/Airhogs777/sb3-theme/wiki/Creating-Themes)
 
-## Featured Theme
+<h2 align="center">Featured Theme</h2>
 <table width="100%">
   <tr>
     <th width="60%">
