@@ -19,6 +19,10 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   this.onNew = function(func) {
     onNews.push(func);
   };
+  var onChanges = [];
+  this.onChange = function(func) {
+    onChanges.push(func);
+  };
   var addFilters = [];
   this.addFilter = function(filter) {
     addFilters.push(filter);
@@ -28,7 +32,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   };
   var runAddFilters = function() {
     var defs = self.svg.getElementsByTagName('defs')[0];
-    var ns = Blockly.SVG_NS;
+    var ns = self.NS;
     while(addFilters.length) {
       let filter = addFilters.pop();
       var doc = new DOMParser().parseFromString(`<svg xmlns="` + ns + `">` + filter + `</svg>`, 'image/svg+xml');
@@ -36,9 +40,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
   };
 
-  var styleBlock = function(queueitem) {
-    var block = queueitem[0];
-    var db = queueitem[1];
+  var styleBlock = function(block) {
     block.svgPath_.classList.add("block-background");
 
     var classes = ["block"];
@@ -55,12 +57,9 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       let j = block.inputList[i];
       if(j.name.match(/SUBSTACK/)) {
         substacks++;
-        if(j.connection && j.connection.targetConnection) { //if there's a block in the substack, push it to the queue
-          queue.push([j.connection.targetConnection.sourceBlock_, db]);
-        }
       } else if(j.connection && j.connection.check_ == "Boolean") {
         //nothing, bools should already be taken care of
-      } else if(j.connection) {
+      } else if(j.connection && j.connection.targetConnection) {
         let inputBlock = j.connection.targetConnection.sourceBlock_;
         if(inputBlock.isShadow_) {
           let inputGroup = inputBlock.svgGroup_;
@@ -73,9 +72,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           } else if(inputBlock.type.match(/menu|dropdown/)) {
             inputGroup.classList.add("input-dropdown");
           }
-        } else {
-          //if there's a non-shadow-block in the input, push it to the queue
-          queue.push([inputBlock, db]);
         }
       }
     }
@@ -83,10 +79,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     //icon class
     if(block.renderingMetrics_ && block.renderingMetrics_.imageField) {
       block.renderingMetrics_.imageField.imageElement_.classList.add("icon");
-    }
-
-    if(block.nextConnection && block.nextConnection.targetConnection) { //if there's a block conected to me, push it to the queue
-      queue.push([block.nextConnection.targetConnection.sourceBlock_, db]);
     }
 
     //figure out shape based on connectors and things
@@ -116,21 +108,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       }
     }
     block.svgGroup_.classList.add.apply(block.svgGroup_.classList, classes);
-    console.log([block, classes.join()]);
-
-    for(let i in onNews) {
-      onNews[i](block.type, block.svgGroup_, classes, block);
-    }
-  };
-
-  var queue = [];
-  var blocklyEvent = function(event, db) {
-    if(event instanceof Blockly.Events.Create) {
-      queue = [[db[event.blockId], db]];
-      while(queue.length) {
-        styleBlock(queue.pop());
-      }
-    }
+    block.classes = classes;
   };
 
   var initSVG = function() {
@@ -141,6 +119,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     } else {
       self.svg.classList.add("vertical");
     }
+    self.NS = self.svg.namespaceURI;
 
     self.colors = {}; // build an object with the official color names for easy category detection
     for(let i in Blockly.Colours) {
@@ -163,31 +142,53 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     //hijack dropown menus
     var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
     Blockly.DropDownDiv.showPositionedByBlock = function(owner, block) {
-      oldDropdownShow.apply(this, arguments);
+      var results = oldDropdownShow.apply(this, arguments);
       this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
       if(self.options.menuColors) {
         this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
         this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
       }
+      return results;
     };
 
     //hijack insertion-markers
     var oldSetInsertionMarker = Blockly.BlockSvg.prototype.setInsertionMarker;
     Blockly.BlockSvg.prototype.setInsertionMarker = function() {
       this.svgGroup_.classList.add("insertion-marker");
-      oldSetInsertionMarker.apply(this, arguments);
+      return oldSetInsertionMarker.apply(this, arguments);
     };
 
-    var flyoutWorkspace = (workspace.flyout_) ? workspace.flyout_.workspace_ :
-      workspace.toolbox_.flyout_.workspace_;
+    //hijack block init
+    var oldInit = Blockly.BlockSvg.prototype.initSvg;
+    Blockly.BlockSvg.prototype.initSvg = function() {
+      var results = oldInit.apply(this, arguments);
+      if(!this.isShadow_) {
+        styleBlock(this);
+        console.log([this, this.classes.join()]);
 
-    flyoutWorkspace.addChangeListener(function(e) {
-      blocklyEvent(e, flyoutWorkspace.blockDB_);
-    });
-    Blockly.mainWorkspace.addChangeListener(function(e) {
-      blocklyEvent(e, Blockly.mainWorkspace.blockDB_);
-    });
+        for(let i = 0; i < onNews.length; i++) {
+          onNews[i](this.type, this.svgGroup_, this.classes, this);
+        }
+      }
+      return results;
+    };
 
+    //hijack block rendering to capture shape changes
+    var oldRender = Blockly.BlockSvg.prototype.render;
+    Blockly.BlockSvg.prototype.render = function() {
+      var results = oldRender.apply(this, arguments);
+      if(!this.isShadow_) {
+        var newShape = this.svgPath_.getAttribute("d")
+        if(newShape != this.oldShape) {
+          this.oldShape = newShape;
+
+          for(let i = 0; i < onChanges.length; i++) {
+            onChanges[i](this.type, this.svgGroup_, this.classes, this);
+          }
+        }
+      }
+      return results;
+    };
 
     runAddFilters();
   };
