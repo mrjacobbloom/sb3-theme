@@ -16,9 +16,5 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
     </th>
     <th><img src="resources/featured.png"/></th>
   </tr>
-  <tr>
-    <td colspan="2" align="center">
-    <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library"><img src="resources/more-themes.png"/></a>
-    </td>
-  </tr>
 </table>
+<h2 align="center"><a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library"><img src="resources/more-themes.png"/></a></h2>
