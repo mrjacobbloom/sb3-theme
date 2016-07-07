@@ -83,7 +83,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
     //figure out shape based on connectors and things
     var isHat = !block.outputConnection && !block.previousConnection;
-    if(!self.horizontal && !isHat) {
+    if(block.outputConnection) {
       classes.push("reporter");
       if(block.edgeShape_ == Blockly.OUTPUT_SHAPE_HEXAGONAL) {
         classes.push("boolean");
