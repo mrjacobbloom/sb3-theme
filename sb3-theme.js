@@ -15,6 +15,10 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         border-color: inherit !important;
       }`);
 
+  var onLoads = [];
+  this.onLoad = function(func) {
+    onLoads.push(func);
+  };
   var onNews = [];
   this.onNew = function(func) {
     onNews.push(func);
@@ -39,6 +43,17 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       defs.appendChild( defs.ownerDocument.importNode(doc.documentElement.firstElementChild, true) );
     }
   };
+
+  var runEach = function(list, block) {
+    for(let i = 0; i < list.length; i++) {
+      if(block) {
+        list[i](block.type, block.svgGroup_, block.classes, block);
+      } else {
+        list[i]();
+      }
+
+    }
+  }
 
   var styleBlock = function(block) {
     block.svgPath_.classList.add("block-background");
@@ -161,9 +176,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         styleBlock(this);
         console.log([this, this.classes.join()]);
 
-        for(let i = 0; i < onNews.length; i++) {
-          onNews[i](this.type, this.svgGroup_, this.classes, this);
-        }
+        runEach(onNews, this);
       }
       return results;
     };
@@ -177,15 +190,14 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         if(newShape != this.oldShape) {
           this.oldShape = newShape;
 
-          for(let i = 0; i < onChanges.length; i++) {
-            onChanges[i](this.type, this.svgGroup_, this.classes, this);
-          }
+          runEach(onChanges, this)
         }
       }
       return results;
     };
 
     runAddFilters();
+    runEach(onLoads, false);
   };
 
   // hang out until the SVG exists, then run the init function
