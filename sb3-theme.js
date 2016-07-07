@@ -44,7 +44,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     block.svgPath_.classList.add("block-background");
 
     var classes = ["block"];
-    var category = self.colors[block.colour_];
+    var category = block.type.match(/[a-z]+/)[0];
     classes.push(category);
 
     //do things wth the inputs
@@ -121,13 +121,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       self.svg.classList.add("vertical");
     }
     self.NS = self.svg.namespaceURI;
-
-    self.colors = {}; // build an object with the official color names for easy category detection
-    for(let i in Blockly.Colours) {
-      if(Blockly.Colours.hasOwnProperty(i) && typeof Blockly.Colours[i] == "object") {
-        self.colors[Blockly.Colours[i].primary] = i;
-      }
-    }
+    self.colors = Blockly.Colours;
 
     //hijack replacement-rings
     var oldHighlightForReplacement = Blockly.BlockSvg.prototype.highlightForReplacement;
