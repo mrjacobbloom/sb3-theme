@@ -60,15 +60,15 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       } else if(j.connection && j.connection.check_ == "Boolean") {
         //nothing, bools should already be taken care of
       } else if(j.connection && j.connection.targetConnection) {
-        let inputBlock = j.connection.targetConnection.sourceBlock_;
+        let inputBlock = j.connection.targetBlock();
         if(inputBlock.isShadow_) {
           let inputGroup = inputBlock.svgGroup_;
           inputBlock.svgPath_.classList.add("input-background");
           inputGroup.classList.add("input");
-          if(inputBlock.type.match(/number/)) {
-            inputGroup.classList.add("input-number");
-          } else if(inputBlock.type.match(/text/)) {
+          if(inputBlock.type.match(/number|text/)) {
             inputGroup.classList.add("input-string");
+          } else if(inputBlock.type.match(/colour/)) {
+            inputGroup.classList.add("input-color");
           } else if(inputBlock.type.match(/menu|dropdown/)) {
             inputGroup.classList.add("input-dropdown");
           }
@@ -83,14 +83,14 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
     //figure out shape based on connectors and things
     var isHat = !block.outputConnection && !block.previousConnection;
-    if(!self.horizontal && !block.previousConnection && !isHat) {
+    if(!self.horizontal && !isHat) {
       classes.push("reporter");
-      if(block.edgeShape_ == 1) {
+      if(block.edgeShape_ == Blockly.OUTPUT_SHAPE_HEXAGONAL) {
         classes.push("boolean");
-      } else if(block.edgeShape_ == 3) {
-        classes.push("number");
-      } else {
+      } else if(block.edgeShape_ == Blockly.OUTPUT_SHAPE_ROUND) {
         classes.push("string");
+      } else {
+        // this shouldn't happen anymore because string-shaped reporters aren't a thing
       }
     } else {
       if(substacks) {
