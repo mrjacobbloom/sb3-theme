@@ -10,10 +10,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   this.style = function(css) {
     this.css.innerHTML += css;
   };
-  this.style(`.blocklyDropDownArrow {
-        background: inherit !important;
-        border-color: inherit !important;
-      }`);
 
   var onLoads = [];
   this.onLoad = function(func) {
