@@ -68,22 +68,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       let j = block.inputList[i];
       if(j.name.match(/SUBSTACK/)) {
         substacks++;
-      } else if(j.connection && j.connection.check_ == "Boolean") {
-        //nothing, bools should already be taken care of
-      } else if(j.connection && j.connection.targetConnection) {
-        let inputBlock = j.connection.targetBlock();
-        if(inputBlock.isShadow_) {
-          let inputGroup = inputBlock.svgGroup_;
-          inputBlock.svgPath_.classList.add("input-background");
-          inputGroup.classList.add("input");
-          if(inputBlock.type.match(/number|text/)) {
-            inputGroup.classList.add("input-string");
-          } else if(inputBlock.type.match(/colour/)) {
-            inputGroup.classList.add("input-color");
-          } else if(inputBlock.type.match(/menu|dropdown/)) {
-            inputGroup.classList.add("input-dropdown");
-          }
-        }
       }
     }
 
@@ -163,6 +147,46 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       this.svgGroup_.classList.add("insertion-marker");
       return oldSetInsertionMarker.apply(this, arguments);
     };
+
+
+    // hijack inputs to succcessfully keep track of their own types :D
+    var hijackInputs = function() {
+      var inputs = [
+        ['FieldTextInput', 'input-text'],
+        ['FieldAngle', 'input-angle'],
+        ['FieldNumber', 'input-number'],
+        ['FieldCheckbox', 'input-checkbox'],
+        ['FieldColour', 'input-color'],
+        ['FieldVariable', 'input-variable'],
+        ['FieldDropdown', 'input-dropdown'],
+        ['FieldIconMenu', 'input-icon-menu'],
+        ['FieldDate', 'input-date']
+      ]
+      var oldappendInput = Blockly.Input.prototype.appendField;
+      Blockly.Input.prototype.appendField = function() {
+        var results = oldappendInput.apply(this, arguments);
+        if(typeof arguments[0] == "object") {
+          results.sourceBlock_.svgGroup_.classList.add("input", arguments[0].className);
+          results.sourceBlock_.svgPath_.classList.add("input-background");
+        }
+        return results;
+      };
+      for(let i = 0; i < inputs.length; i++) {
+        let funcName = inputs[i][0];
+        let className = inputs[i][1];
+        let func = Blockly[funcName];
+        Blockly[funcName] = function() {
+          var results = func.apply(this, arguments);
+          this.className = className;
+          return results;
+        };
+        for(let j in func) {
+          Blockly[funcName][j] = func[j];
+        }
+        Blockly[funcName].prototype = func.prototype;
+      }
+    };
+    hijackInputs();
 
     //hijack block init
     var oldInit = Blockly.BlockSvg.prototype.initSvg;
