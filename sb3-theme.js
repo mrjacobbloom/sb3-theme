@@ -133,10 +133,12 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
     Blockly.DropDownDiv.showPositionedByBlock = function(owner, block) {
       var results = oldDropdownShow.apply(this, arguments);
-      this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
-      if(self.options.menuColors) {
-        this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
-        this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
+      if(block.parentBlock_) {
+        this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
+        if(self.options.menuColors) {
+          this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
+          this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
+        }
       }
       return results;
     };
