@@ -167,7 +167,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       var oldappendInput = Blockly.Input.prototype.appendField;
       Blockly.Input.prototype.appendField = function() {
         var results = oldappendInput.apply(this, arguments);
-        if(typeof arguments[0] == "object") {
+        if(typeof arguments[0] == "object" && arguments[0].className) {
           results.sourceBlock_.svgGroup_.classList.add("input", arguments[0].className);
           results.sourceBlock_.svgPath_.classList.add("input-background");
         }
