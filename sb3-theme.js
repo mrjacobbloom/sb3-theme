@@ -128,6 +128,21 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       }
       oldHighlightForReplacement.apply(this, arguments);
     };
+    if(Blockly.BlockSvg.prototype.highlightShapeForInput) {
+      var oldHighlightShapeForInput = Blockly.BlockSvg.prototype.highlightShapeForInput;
+      Blockly.BlockSvg.prototype.highlightShapeForInput = function(conn, add) {
+        var input = this.getInputWithConnection(conn);
+        if(input) {
+          var inputShape = this.inputShapes_[input.name];
+          if(add) {
+            inputShape.classList.add("replaceable");
+          } else {
+            inputShape.classList.remove("replaceable");
+          }
+        }
+        oldHighlightShapeForInput.apply(this, arguments);
+      };
+    }
 
     //hijack dropown menus
     var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
