@@ -182,10 +182,12 @@ if(!window.sb3theme) window.sb3theme = new (function() {
           this.className = className;
           return results;
         };
-        for(let j in func) {
-          Blockly[funcName][j] = func[j];
+        if(func) {
+          for(let j in func) {
+            Blockly[funcName][j] = func[j];
+          }
+          Blockly[funcName].prototype = func.prototype;
         }
-        Blockly[funcName].prototype = func.prototype;
       }
     };
     hijackInputs();
