@@ -8,13 +8,13 @@ Just like Scratch-Blocks, this is a **work-in-progress**. Everything is subject 
 <table width="100%">
   <tr>
     <th width="60%">
-    <h1>PlainText</h1>
+    <h1>2</h1>
     <br/>
-    <a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#plaintext-vertical-only"><img src="resources/download.png"/></a>
+    <a href="https://raw.githubusercontent.com/Airhogs777/sb3-theme/master/themes/2/script.user.js"><img src="resources/download.png"/></a>
     <br/>
     [<a href="https://github.com/Airhogs777/sb3-theme/wiki/Themes-Library#before-you-can-install-a-theme">need help installing?</a>]
     </th>
-    <th><img src="resources/featured.png"/></th>
+    <th><img src="themes/2/thumb.png"/></th>
   </tr>
   <tr>
     <td colspan="2" align="center">

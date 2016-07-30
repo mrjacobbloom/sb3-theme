@@ -10,11 +10,11 @@ if(!window.sb3theme) window.sb3theme = new (function() {
   this.style = function(css) {
     this.css.innerHTML += css;
   };
-  this.style(`.blocklyDropDownArrow {
-        background: inherit !important;
-        border-color: inherit !important;
-      }`);
 
+  var onLoads = [];
+  this.onLoad = function(func) {
+    onLoads.push(func);
+  };
   var onNews = [];
   this.onNew = function(func) {
     onNews.push(func);
@@ -40,11 +40,22 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     }
   };
 
+  var runEach = function(list, block) {
+    for(let i = 0; i < list.length; i++) {
+      if(block) {
+        list[i](block.type, block.svgGroup_, block.classes, block);
+      } else {
+        list[i]();
+      }
+
+    }
+  }
+
   var styleBlock = function(block) {
     block.svgPath_.classList.add("block-background");
 
     var classes = ["block"];
-    var category = self.colors[block.colour_];
+    var category = block.type.match(/[a-z]+/)[0];
     classes.push(category);
 
     //do things wth the inputs
@@ -57,22 +68,6 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       let j = block.inputList[i];
       if(j.name.match(/SUBSTACK/)) {
         substacks++;
-      } else if(j.connection && j.connection.check_ == "Boolean") {
-        //nothing, bools should already be taken care of
-      } else if(j.connection && j.connection.targetConnection) {
-        let inputBlock = j.connection.targetConnection.sourceBlock_;
-        if(inputBlock.isShadow_) {
-          let inputGroup = inputBlock.svgGroup_;
-          inputBlock.svgPath_.classList.add("input-background");
-          inputGroup.classList.add("input");
-          if(inputBlock.type.match(/number/)) {
-            inputGroup.classList.add("input-number");
-          } else if(inputBlock.type.match(/text/)) {
-            inputGroup.classList.add("input-string");
-          } else if(inputBlock.type.match(/menu|dropdown/)) {
-            inputGroup.classList.add("input-dropdown");
-          }
-        }
       }
     }
 
@@ -83,14 +78,14 @@ if(!window.sb3theme) window.sb3theme = new (function() {
 
     //figure out shape based on connectors and things
     var isHat = !block.outputConnection && !block.previousConnection;
-    if(!self.horizontal && !block.previousConnection && !isHat) {
+    if(block.outputConnection) {
       classes.push("reporter");
-      if(block.edgeShape_ == 1) {
+      if(block.edgeShape_ == Blockly.OUTPUT_SHAPE_HEXAGONAL) {
         classes.push("boolean");
-      } else if(block.edgeShape_ == 3) {
-        classes.push("number");
-      } else {
+      } else if(block.edgeShape_ == Blockly.OUTPUT_SHAPE_ROUND) {
         classes.push("string");
+      } else {
+        // this shouldn't happen anymore because string-shaped reporters aren't a thing
       }
     } else {
       if(substacks) {
@@ -121,13 +116,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       self.svg.classList.add("vertical");
     }
     self.NS = self.svg.namespaceURI;
-
-    self.colors = {}; // build an object with the official color names for easy category detection
-    for(let i in Blockly.Colours) {
-      if(Blockly.Colours.hasOwnProperty(i) && typeof Blockly.Colours[i] == "object") {
-        self.colors[Blockly.Colours[i].primary] = i;
-      }
-    }
+    self.colors = Blockly.Colours;
 
     //hijack replacement-rings
     var oldHighlightForReplacement = Blockly.BlockSvg.prototype.highlightForReplacement;
@@ -144,10 +133,12 @@ if(!window.sb3theme) window.sb3theme = new (function() {
     var oldDropdownShow = Blockly.DropDownDiv.showPositionedByBlock;
     Blockly.DropDownDiv.showPositionedByBlock = function(owner, block) {
       var results = oldDropdownShow.apply(this, arguments);
-      this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
-      if(self.options.menuColors) {
-        this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
-        this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
+      if(block.parentBlock_) {
+        this.DIV_.classList.add("dropdown-menu", self.colors[block.parentBlock_.colour_]);
+        if(self.options.menuColors) {
+          this.DIV_.style.backgroundColor = getComputedStyle(block.parentBlock_.svgPath_).fill;
+          this.DIV_.style.borderColor = getComputedStyle(block.parentBlock_.svgPath_).stroke;
+        }
       }
       return results;
     };
@@ -159,6 +150,46 @@ if(!window.sb3theme) window.sb3theme = new (function() {
       return oldSetInsertionMarker.apply(this, arguments);
     };
 
+
+    // hijack inputs to succcessfully keep track of their own types :D
+    var hijackInputs = function() {
+      var inputs = [
+        ['FieldTextInput', 'input-text'],
+        ['FieldAngle', 'input-angle'],
+        ['FieldNumber', 'input-number'],
+        ['FieldCheckbox', 'input-checkbox'],
+        ['FieldColour', 'input-color'],
+        ['FieldVariable', 'input-variable'],
+        ['FieldDropdown', 'input-dropdown'],
+        ['FieldIconMenu', 'input-icon-menu'],
+        ['FieldDate', 'input-date']
+      ]
+      var oldappendInput = Blockly.Input.prototype.appendField;
+      Blockly.Input.prototype.appendField = function() {
+        var results = oldappendInput.apply(this, arguments);
+        if(typeof arguments[0] == "object" && arguments[0].className) {
+          results.sourceBlock_.svgGroup_.classList.add("input", arguments[0].className);
+          results.sourceBlock_.svgPath_.classList.add("input-background");
+        }
+        return results;
+      };
+      for(let i = 0; i < inputs.length; i++) {
+        let funcName = inputs[i][0];
+        let className = inputs[i][1];
+        let func = Blockly[funcName];
+        Blockly[funcName] = function() {
+          var results = func.apply(this, arguments);
+          this.className = className;
+          return results;
+        };
+        for(let j in func) {
+          Blockly[funcName][j] = func[j];
+        }
+        Blockly[funcName].prototype = func.prototype;
+      }
+    };
+    hijackInputs();
+
     //hijack block init
     var oldInit = Blockly.BlockSvg.prototype.initSvg;
     Blockly.BlockSvg.prototype.initSvg = function() {
@@ -167,9 +198,7 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         styleBlock(this);
         console.log([this, this.classes.join()]);
 
-        for(let i = 0; i < onNews.length; i++) {
-          onNews[i](this.type, this.svgGroup_, this.classes, this);
-        }
+        runEach(onNews, this);
       }
       return results;
     };
@@ -183,15 +212,14 @@ if(!window.sb3theme) window.sb3theme = new (function() {
         if(newShape != this.oldShape) {
           this.oldShape = newShape;
 
-          for(let i = 0; i < onChanges.length; i++) {
-            onChanges[i](this.type, this.svgGroup_, this.classes, this);
-          }
+          runEach(onChanges, this)
         }
       }
       return results;
     };
 
     runAddFilters();
+    runEach(onLoads, false);
   };
 
   // hang out until the SVG exists, then run the init function
