@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         sb3theme: 2
 // @author       Airhogs777
-// @include      /^.*/(vertical|horizontal)_playground.html?$/
+// @include      /^.*/vertical_playground.html?$/
 // @grant        none
 // @require      https://airhogs777.github.io/sb3-theme/sb3-theme.js
 // ==/UserScript==
